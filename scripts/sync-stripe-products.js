@@ -79,6 +79,13 @@ async function syncProducts() {
                        '0';
       const order = parseInt(rawOrder, 10) || 0;
 
+      // Get workId from metadata (links product to a work in works.json)
+      const workId = product.metadata?.workId ||
+                     product.metadata?.workid ||
+                     product.metadata?.WorkId ||
+                     product.metadata?.work_id ||
+                     null;
+
       // Check if sold out (payment link has restrictions)
       const sold = !link.active;
 
@@ -94,6 +101,11 @@ async function syncProducts() {
         sold: sold,
         _order: order // Used for sorting, removed before saving
       };
+
+      // Only add workId if it exists
+      if (workId) {
+        productEntry.workId = workId;
+      }
 
       products.push(productEntry);
       console.log(`Added: ${product.name} (${category}) - $${productEntry.price}`);

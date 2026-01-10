@@ -18,6 +18,27 @@ Hey! This guide will help you update your website. Don't worry - it's simpler th
 
 ---
 
+## How Work Detail Pages Work
+
+When visitors click on any artwork in your gallery, they're taken to a dedicated detail page showing:
+- The full-size image (click to zoom)
+- Title and year
+- Description (if you've added one)
+- **Any linked shop products** (prints or originals available for purchase)
+
+To link a shop product to an artwork, add `workId` metadata in Stripe (see Shop section below).
+
+### Description Fallback
+
+Shop products automatically inherit descriptions from their linked artwork! This means:
+- If a product has its own description in Stripe, that's used
+- If a product has no description but is linked to a work (via `workId`), the work's description is used
+- This works on both the Shop page and Work Detail pages
+
+**Example:** If "Sparkle Face" in `works.json` has description "Acrylic on canvas, 24x36", any linked prints or originals without their own description will automatically show that text.
+
+---
+
 ## Adding New Artwork (The Most Common Task!)
 
 ### Step 1: Add your image
@@ -98,12 +119,18 @@ Your shop syncs automatically with Stripe every 6 hours. **No need to edit any f
    - Click **"Add metadata"**
    - Add: Key = `category`, Value = `Originals`, `Prints`, or `Crafts`
 
-5. **For limited items** (originals, limited editions):
+5. **Link to a work** (Optional but recommended!):
+   - In the same metadata section, add another entry
+   - Add: Key = `workId`, Value = the ID of the artwork (e.g., `sparkle-face`)
+   - This makes the product appear on that artwork's detail page!
+   - Find artwork IDs in `content/works.json`
+
+6. **For limited items** (originals, limited editions):
    - Click "Advanced options"
    - Enable **"Limit the number of payments"**
    - Set quantity (1 for originals, edition size for prints)
 
-6. Click **Create link** - Done!
+7. Click **Create link** - Done!
 
 Your product will appear on your website within 6 hours (or sync manually - see below).
 
@@ -117,14 +144,15 @@ Don't want to wait 6 hours?
 4. Click **"Run workflow"** → **"Run workflow"**
 5. Wait ~30 seconds, refresh your site!
 
-### Category Tips
+### Metadata Tips
 
-The sync is forgiving with categories:
+The sync is forgiving with metadata:
 - `category`, `Category`, or `CATEGORY` all work
 - `prints`, `Prints`, `print`, `Print` all become "Prints"
 - `originals`, `original`, `Original` all become "Originals"
 - `crafts`, `craft`, `Crafts` all become "Crafts"
 - If you forget the category, it defaults to "Prints"
+- `workId`, `workid`, `WorkId`, or `work_id` all work for linking to artwork
 
 ### When Something Sells Out
 

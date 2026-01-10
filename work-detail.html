@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work | Kayla Carabes</title>
+    <link rel="icon" type="image/jpeg" href="assets/images/color-theory.jpeg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">Kayla Carabes</a>
+        <ul class="nav-links">
+            <li><a href="work.html">Work</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <main class="work-detail-page">
+        <a href="work.html" class="back-link">&larr; Back to Work</a>
+
+        <div class="work-detail-container" id="work-detail">
+            <p class="loading">Loading...</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; <span id="year"></span> Kayla Carabes. All rights reserved.</p>
+            <div class="social-links">
+                <!-- Populated by JS from site-settings.json -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox for zooming images -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <img src="" alt="">
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

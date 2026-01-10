@@ -353,31 +353,36 @@ img {
 /* ===========================================
    WORK DETAIL PAGE
    =========================================== */
-.work-detail {
-    padding-top: calc(var(--nav-height) + var(--spacing-lg));
-    padding-bottom: var(--spacing-xl);
+.work-detail-page {
+    padding: calc(var(--nav-height) + var(--spacing-lg)) var(--spacing-md) var(--spacing-xl);
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.work-detail-container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: start;
 }
 
 .work-detail-image {
-    max-width: 900px;
-    margin: 0 auto var(--spacing-lg);
-    padding: 0 var(--spacing-md);
+    position: sticky;
+    top: calc(var(--nav-height) + var(--spacing-md));
 }
 
 .work-detail-image img {
     width: 100%;
+    cursor: zoom-in;
 }
 
 .work-detail-info {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-md);
-    text-align: center;
+    padding-top: var(--spacing-md);
 }
 
 .work-detail-info h1 {
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: 2rem;
+    font-weight: 300;
     margin-bottom: 0.5rem;
 }
 
@@ -390,6 +395,63 @@ img {
 .work-detail-description {
     color: var(--color-text-light);
     line-height: 1.8;
+    margin-bottom: var(--spacing-lg);
+}
+
+.work-detail-shop {
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
+}
+
+.work-detail-shop-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-sm);
+}
+
+.work-detail-shop-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) 0;
+}
+
+.work-detail-shop-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.work-detail-shop-item-title {
+    font-size: 0.9rem;
+}
+
+.work-detail-shop-item-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+}
+
+.work-detail-shop-item-price {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+}
+
+.work-detail-buy-btn {
+    padding: 0.5rem 1.5rem;
+    background: var(--color-text);
+    color: var(--color-bg);
+    font-size: 0.75rem;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.work-detail-buy-btn:hover {
+    opacity: 0.8;
 }
 
 .back-link {
@@ -398,12 +460,28 @@ img {
     gap: 0.5rem;
     font-size: 0.875rem;
     margin-bottom: var(--spacing-md);
-    opacity: 0.6;
-    transition: opacity 0.2s;
+    color: var(--color-text-light);
+    transition: color 0.2s;
 }
 
 .back-link:hover {
-    opacity: 1;
+    color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+    .work-detail-container {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .work-detail-image {
+        position: relative;
+        top: 0;
+    }
+
+    .work-detail-info h1 {
+        font-size: 1.5rem;
+    }
 }
 
 /* ===========================================

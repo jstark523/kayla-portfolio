@@ -109,11 +109,12 @@ async function loadWorks() {
 
 // Create a work item element
 function createWorkItem(work) {
-    const article = document.createElement('article');
-    article.className = 'work-item';
-    article.dataset.category = work.category;
+    const link = document.createElement('a');
+    link.className = 'work-item';
+    link.href = `work-detail.html?id=${work.id}`;
+    link.dataset.category = work.category;
 
-    article.innerHTML = `
+    link.innerHTML = `
         <img src="${work.image}" alt="${work.title}" loading="lazy">
         <div class="work-item-overlay">
             <h3 class="work-item-title">${work.title}</h3>
@@ -121,12 +122,7 @@ function createWorkItem(work) {
         </div>
     `;
 
-    // Click to open lightbox
-    article.addEventListener('click', () => {
-        openLightbox(work.image, work.title);
-    });
-
-    return article;
+    return link;
 }
 
 // Populate featured works on homepage
@@ -279,7 +275,7 @@ async function loadProducts() {
 }
 
 // Create a product card element
-function createProductCard(product) {
+function createProductCard(product, works = []) {
     const article = document.createElement('article');
     article.className = 'product-card';
     article.dataset.category = product.category;
@@ -293,13 +289,22 @@ function createProductCard(product) {
         buttonHtml = '<span class="product-card-btn coming-soon">Coming Soon</span>';
     }
 
+    // Use product description, or fall back to linked work's description
+    let description = product.description;
+    if (!description && product.workId) {
+        const linkedWork = works.find(w => w.id === product.workId);
+        if (linkedWork) {
+            description = linkedWork.description;
+        }
+    }
+
     article.innerHTML = `
         <div class="product-card-image">
             <img src="${product.image}" alt="${product.title}" loading="lazy">
         </div>
         <div class="product-card-info">
             <h3 class="product-card-title">${product.title}</h3>
-            ${product.description ? `<p class="product-card-description">${product.description}</p>` : ''}
+            ${description ? `<p class="product-card-description">${description}</p>` : ''}
             <p class="product-card-price">$${product.price}</p>
             ${buttonHtml}
         </div>
@@ -313,11 +318,15 @@ async function populateShop() {
     const container = document.getElementById('product-grid');
     if (!container) return;
 
-    const products = await loadProducts();
+    // Load products and works in parallel (works needed for description fallback)
+    const [products, works] = await Promise.all([
+        loadProducts(),
+        loadWorks()
+    ]);
 
     container.innerHTML = '';
     products.forEach(product => {
-        container.appendChild(createProductCard(product));
+        container.appendChild(createProductCard(product, works));
     });
 
     // Setup filter functionality
@@ -352,10 +361,96 @@ function setupShopFilters() {
     });
 }
 
+// ===========================================
+// WORK DETAIL PAGE
+// ===========================================
+
+// Get URL parameter
+function getUrlParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+// Load and display work detail
+async function loadWorkDetail() {
+    const container = document.getElementById('work-detail');
+    if (!container) return;
+
+    const workId = getUrlParam('id');
+    if (!workId) {
+        container.innerHTML = '<p>Work not found.</p>';
+        return;
+    }
+
+    // Load works and products in parallel
+    const [works, products] = await Promise.all([
+        loadWorks(),
+        loadProducts()
+    ]);
+
+    // Find the work
+    const work = works.find(w => w.id === workId);
+    if (!work) {
+        container.innerHTML = '<p>Work not found.</p>';
+        return;
+    }
+
+    // Update page title
+    document.title = `${work.title} | Kayla Carabes`;
+
+    // Find any products linked to this work (via workId metadata)
+    const linkedProducts = products.filter(p => p.workId === workId && !p.sold);
+
+    // Build shop section HTML if there are linked products
+    let shopHtml = '';
+    if (linkedProducts.length > 0) {
+        shopHtml = `
+            <div class="work-detail-shop">
+                <p class="work-detail-shop-title">Available for Purchase</p>
+                ${linkedProducts.map(product => {
+                    // Use product description, or fall back to work description
+                    const description = product.description || work.description || '';
+                    return `
+                    <div class="work-detail-shop-item">
+                        <div class="work-detail-shop-item-info">
+                            <span class="work-detail-shop-item-title">${product.title}</span>
+                            ${description ? `<span class="work-detail-shop-item-desc">${description}</span>` : ''}
+                            <span class="work-detail-shop-item-price">$${product.price}</span>
+                        </div>
+                        <a href="${product.stripeLink}" target="_blank" rel="noopener" class="work-detail-buy-btn">Buy</a>
+                    </div>
+                `}).join('')}
+            </div>
+        `;
+    }
+
+    // Render the detail page
+    container.innerHTML = `
+        <div class="work-detail-image">
+            <img src="${work.image}" alt="${work.title}" id="detail-image">
+        </div>
+        <div class="work-detail-info">
+            <h1>${work.title}</h1>
+            <p class="work-detail-meta">${work.year}${work.category ? ` · ${work.category}` : ''}</p>
+            ${work.description ? `<p class="work-detail-description">${work.description}</p>` : ''}
+            ${shopHtml}
+        </div>
+    `;
+
+    // Add click to zoom on image (opens lightbox)
+    const detailImage = document.getElementById('detail-image');
+    if (detailImage) {
+        detailImage.addEventListener('click', () => {
+            openLightbox(work.image, work.title);
+        });
+    }
+}
+
 // Initialize based on current page
 document.addEventListener('DOMContentLoaded', () => {
     loadSiteSettings();
     populateFeaturedWorks();
     populateAllWorks();
     populateShop();
+    loadWorkDetail();
 });
