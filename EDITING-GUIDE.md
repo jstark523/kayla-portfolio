@@ -6,10 +6,10 @@ Hey! This guide will help you update your website. Don't worry - it's simpler th
 
 ## Quick Reference
 
-| What you want to do | File to edit |
-|---------------------|--------------|
+| What you want to do | Where to do it |
+|---------------------|----------------|
 | Add/remove artwork | `content/works.json` |
-| Add/remove shop products | `content/products.json` |
+| Add/remove shop products | Stripe Dashboard (syncs automatically!) |
 | Update email & social links | `content/site-settings.json` (updates everywhere!) |
 | Update your bio | `about.html` |
 | Change colors/fonts | `assets/css/style.css` |
@@ -79,86 +79,69 @@ Open `content/works.json` and add a new entry. Copy this template:
 
 ---
 
-## Setting Up Your Shop with Stripe
+## Managing Your Shop (Automatic Stripe Sync!)
 
-Your shop uses Stripe Payment Links - a simple way to accept payments without any coding. Here's how to set it up:
+Your shop syncs automatically with Stripe every 6 hours. **No need to edit any files** - just manage products in Stripe and they appear on your website!
 
-### First Time Setup (One Time Only)
-
-1. **Create a Stripe account** at [stripe.com](https://stripe.com)
-2. Complete their verification process (takes a few minutes)
-3. That's it! You're ready to create payment links.
-
-### Adding a Product to Your Shop
-
-#### Step 1: Create a Payment Link in Stripe
+### Adding a Product
 
 1. Log into [dashboard.stripe.com](https://dashboard.stripe.com)
-2. Go to **Payment Links** in the left sidebar (or search for it)
-3. Click **+ New** to create a new payment link
-4. Fill in:
+2. Go to **Payment Links** → Click **+ New**
+3. Fill in the product details:
    - **Product name**: e.g., "Mountain Print 11x14"
    - **Price**: e.g., $35.00
-   - **Image**: Upload a photo of the product
-5. **IMPORTANT for limited items**: Click "Advanced options" and enable **"Limit the number of payments"**
-   - For originals: Set to 1
-   - For limited edition prints: Set to your edition size (e.g., 25)
-6. Click **Create link**
-7. Copy the link (looks like `https://buy.stripe.com/xxxxx`)
+   - **Image**: Upload a photo (this shows on your website!)
+   - **Description**: Size, medium, details
 
-#### Step 2: Add the Product to Your Website
+4. **Set the category** (Important!):
+   - Scroll down and click **"Additional options"**
+   - Click **"Add metadata"**
+   - Add: Key = `category`, Value = `Originals`, `Prints`, or `Crafts`
 
-Open `content/products.json` and add a new entry:
+5. **For limited items** (originals, limited editions):
+   - Click "Advanced options"
+   - Enable **"Limit the number of payments"**
+   - Set quantity (1 for originals, edition size for prints)
 
-```json
-{
-  "id": "mountain-print",
-  "title": "Mountain Print",
-  "category": "Prints",
-  "price": 35,
-  "image": "assets/images/mountain-print.jpg",
-  "description": "Archival giclée print, 11x14 inches",
-  "stripeLink": "https://buy.stripe.com/xxxxx",
-  "sold": false
-}
-```
+6. Click **Create link** - Done!
 
-**Categories:** Use `Originals`, `Prints`, or `Crafts`
+Your product will appear on your website within 6 hours (or sync manually - see below).
 
-**Don't forget:**
-- Add a comma after the previous product's `}`
-- Add the product image to `assets/images/`
-- The `price` is just for display - the actual charge comes from Stripe
+### Syncing Immediately (Manual Sync)
 
-#### Step 3: When Something Sells Out
+Don't want to wait 6 hours?
 
-**For originals or limited editions that sold out:**
+1. Go to your GitHub repo
+2. Click **Actions** tab
+3. Click **"Sync Stripe Products"** on the left
+4. Click **"Run workflow"** → **"Run workflow"**
+5. Wait ~30 seconds, refresh your site!
 
-1. Stripe automatically stops accepting payments when the limit is reached
-2. In `products.json`, change `"sold": false` to `"sold": true`
-3. The website will show "Sold" instead of "Buy Now"
+### Category Tips
 
-**To remove a product entirely:** Just delete its entire entry from `products.json` (and the comma before it)
+The sync is forgiving with categories:
+- `category`, `Category`, or `CATEGORY` all work
+- `prints`, `Prints`, `print`, `Print` all become "Prints"
+- `originals`, `original`, `Original` all become "Originals"
+- `crafts`, `craft`, `Crafts` all become "Crafts"
+- If you forget the category, it defaults to "Prints"
 
-### Product Entry Explained
+### When Something Sells Out
 
-```json
-{
-  "id": "unique-id",           // No spaces, used internally
-  "title": "Display Name",     // What customers see
-  "category": "Prints",        // Originals, Prints, or Crafts
-  "price": 35,                 // Display price (number, no $)
-  "image": "assets/images/x.jpg",  // Product photo
-  "description": "Details",    // Size, medium, etc.
-  "stripeLink": "https://...", // Paste from Stripe (or leave "" if not ready)
-  "sold": false                // Change to true when sold out
-}
-```
+- Stripe automatically stops accepting payments when limit is reached
+- Deactivate the payment link in Stripe to show "Sold" on your site
+- Or just delete the payment link to remove it entirely
 
-**Button states:**
-- Has `stripeLink` → Shows "Buy Now"
-- `stripeLink` is `""` → Shows "Coming Soon"
-- `sold` is `true` → Shows "Sold"
+### Removing a Product
+
+Just delete or deactivate the Payment Link in Stripe. Next sync, it's gone from your site.
+
+### Product Images
+
+The image you upload to Stripe is used on your website. For best results:
+- Use square or 4:5 ratio images
+- At least 800px wide
+- JPG or PNG format
 
 ---
 
@@ -348,10 +331,11 @@ Don't panic! Here's what to do:
 |---------|----------|
 | Images not showing | Check the filename matches exactly (case-sensitive!) |
 | Page looks broken | You might have deleted a `<` or `>` in HTML |
-| Works/Shop page is blank | Check JSON file for missing commas or quotes |
+| Works page is blank | Check `works.json` for missing commas or quotes |
+| Shop not updating | Run manual sync (Actions → Sync Stripe Products → Run workflow) |
+| Product not appearing | Check Payment Link is active in Stripe, wait for sync |
+| Wrong category | Edit product metadata in Stripe, run sync |
 | Changes not appearing | Did you push to GitHub? Wait 1-2 minutes. |
-| "Buy Now" not working | Check the Stripe link is correct in products.json |
-| Product still showing after selling | Change `"sold": false` to `"sold": true` |
 
 ---
 
@@ -364,4 +348,4 @@ Don't panic! Here's what to do:
 
 ---
 
-That's it! You've got this. Start by adding one new product and see how it goes.
+That's it! You've got this. Products sync from Stripe automatically - just create Payment Links and they'll appear on your site!

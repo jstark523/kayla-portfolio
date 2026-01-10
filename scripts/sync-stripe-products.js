@@ -56,11 +56,28 @@ async function syncProducts() {
         continue;
       }
 
-      // Get category from metadata (default to "Prints")
-      const category = product.metadata?.category || 'Prints';
+      // Get category from metadata (case-insensitive, with fallbacks)
+      const rawCategory = product.metadata?.category ||
+                          product.metadata?.Category ||
+                          product.metadata?.CATEGORY ||
+                          'Prints';
+
+      // Normalize category to proper case
+      const categoryMap = {
+        'originals': 'Originals',
+        'original': 'Originals',
+        'prints': 'Prints',
+        'print': 'Prints',
+        'crafts': 'Crafts',
+        'craft': 'Crafts'
+      };
+      const category = categoryMap[rawCategory.toLowerCase()] || 'Prints';
 
       // Get sort order from metadata (default to 0)
-      const order = parseInt(product.metadata?.order || '0', 10);
+      const rawOrder = product.metadata?.order ||
+                       product.metadata?.Order ||
+                       '0';
+      const order = parseInt(rawOrder, 10) || 0;
 
       // Check if sold out (payment link has restrictions)
       const sold = !link.active;
