@@ -4,6 +4,20 @@ Hey! This guide will help you update your website. Don't worry - it's simpler th
 
 ---
 
+## Before You Start Editing
+
+**Always pull the latest changes first!** The shop syncs automatically from Stripe, so the repo may have changed since you last worked on it.
+
+In your terminal, run:
+```
+git fetch
+git pull
+```
+
+Or in GitHub Desktop: click "Fetch origin" then "Pull origin" if there are changes.
+
+---
+
 ## Quick Reference
 
 | What you want to do | Where to do it |
@@ -15,6 +29,8 @@ Hey! This guide will help you update your website. Don't worry - it's simpler th
 | Change colors/fonts | `assets/css/style.css` |
 | Replace images | `assets/images/` folder |
 | Change homepage tagline | `index.html` |
+
+⚠️ **Don't edit `content/products.json` directly** - it's auto-generated from Stripe and will be overwritten!
 
 ---
 
