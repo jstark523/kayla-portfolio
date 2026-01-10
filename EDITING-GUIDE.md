@@ -10,9 +10,8 @@ Hey! This guide will help you update your website. Don't worry - it's simpler th
 |---------------------|--------------|
 | Add/remove artwork | `content/works.json` |
 | Add/remove shop products | `content/products.json` |
+| Update email & social links | `content/site-settings.json` (updates everywhere!) |
 | Update your bio | `about.html` |
-| Change contact info | `contact.html` |
-| Update social links (Etsy, Instagram, etc.) | All `.html` files (footer section) |
 | Change colors/fonts | `assets/css/style.css` |
 | Replace images | `assets/images/` folder |
 | Change homepage tagline | `index.html` |
@@ -163,35 +162,53 @@ Open `content/products.json` and add a new entry:
 
 ---
 
-## Updating Your Social Links
+## Updating Your Email & Social Links (Site-Wide!)
 
-Your Etsy, Instagram, and email appear in the footer of every page. To update them:
+Your email and social links appear on every page. Edit them in ONE place and they update everywhere!
 
-### Update in ALL these files:
-- `index.html`
-- `work.html`
-- `shop.html`
-- `about.html`
-- `contact.html`
+### Open `content/site-settings.json`:
 
-### Find this section (near the bottom):
-```html
-<div class="social-links">
-    <a href="https://etsy.com/shop/YOURSHOPNAME" ...>Etsy</a>
-    <a href="https://instagram.com/yourusername" ...>Instagram</a>
-    <a href="mailto:hello@example.com">Email</a>
-</div>
+```json
+{
+  "artistName": "Kayla Carabes",
+  "email": "kjcarabes@gmail.com",
+
+  "socialLinks": [
+    {
+      "name": "Instagram",
+      "url": "https://instagram.com/kayla_carabes"
+    }
+  ]
+}
 ```
 
-### Change:
-- `YOURSHOPNAME` → your actual Etsy shop name
-- `yourusername` → your actual Instagram handle
-- `hello@example.com` → your actual email
+### To change your email:
+Just change the `email` value.
 
-**Tip:** Use VS Code's "Find and Replace" (Cmd+Shift+H on Mac) to change all at once:
-- Find: `YOURSHOPNAME`
-- Replace: `YourActualShopName`
-- Click "Replace All"
+### To add a new social link:
+Add a new entry to the `socialLinks` array:
+
+```json
+"socialLinks": [
+    {
+      "name": "Instagram",
+      "url": "https://instagram.com/kayla_carabes"
+    },
+    {
+      "name": "Etsy",
+      "url": "https://etsy.com/shop/yourshopname"
+    },
+    {
+      "name": "TikTok",
+      "url": "https://tiktok.com/@yourusername"
+    }
+  ]
+```
+
+**Don't forget:** Add a comma after each `}` except the last one!
+
+### To remove a social link:
+Just delete its entire `{ "name": "...", "url": "..." }` entry (and the comma before it if it's the last one)
 
 ---
 
@@ -218,22 +235,20 @@ Just change the text between the `<p>` and `</p>` tags. Each `<p>...</p>` is a p
 
 ---
 
-## Changing Your Contact Info
+## Changing the Contact Page Text
 
-Open `contact.html` and find these lines:
+The email and social links on the contact page are automatically pulled from `content/site-settings.json` (see above).
+
+To change the contact page message, open `contact.html` and find:
 
 ```html
-<a href="mailto:hello@example.com" class="contact-email">hello@example.com</a>
+<!-- ✏️ EDIT YOUR CONTACT INFO HERE -->
+<p>
+    Interested in working together...
+</p>
 ```
 
-Change `hello@example.com` in BOTH places to your real email.
-
-For social links in the contact page body:
-```html
-<a href="https://instagram.com/yourusername">Instagram</a>
-```
-
-Change `yourusername` to your actual Instagram handle.
+Edit the text between `<p>` and `</p>` to say whatever you want.
 
 ---
 

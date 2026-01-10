@@ -2,6 +2,7 @@
  * KAYLA'S PORTFOLIO - Main JavaScript
  *
  * This file handles:
+ * - Site-wide settings (social links, email)
  * - Loading artwork from works.json
  * - Mobile navigation
  * - Lightbox for viewing images
@@ -12,6 +13,68 @@
 document.querySelectorAll('#year').forEach(el => {
     el.textContent = new Date().getFullYear();
 });
+
+// ===========================================
+// SITE-WIDE SETTINGS
+// ===========================================
+
+// Load and apply site settings from JSON
+async function loadSiteSettings() {
+    try {
+        const response = await fetch('content/site-settings.json');
+        const settings = await response.json();
+        applySiteSettings(settings);
+    } catch (error) {
+        console.error('Error loading site settings:', error);
+    }
+}
+
+// Apply settings to the page
+function applySiteSettings(settings) {
+    // Update all footer social links
+    document.querySelectorAll('.social-links').forEach(container => {
+        container.innerHTML = '';
+
+        // Add social links from settings
+        settings.socialLinks.forEach(social => {
+            const link = document.createElement('a');
+            link.href = social.url;
+            link.textContent = social.name;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            container.appendChild(link);
+        });
+
+        // Add email link
+        if (settings.email) {
+            const emailLink = document.createElement('a');
+            emailLink.href = `mailto:${settings.email}`;
+            emailLink.textContent = 'Email';
+            container.appendChild(emailLink);
+        }
+    });
+
+    // Update contact page email if it exists
+    const contactEmail = document.querySelector('.contact-email');
+    if (contactEmail && settings.email) {
+        contactEmail.href = `mailto:${settings.email}`;
+        contactEmail.textContent = settings.email;
+    }
+
+    // Update contact page social links if they exist
+    const contactSocial = document.querySelector('.contact-social');
+    if (contactSocial) {
+        contactSocial.innerHTML = '';
+        settings.socialLinks.forEach(social => {
+            const link = document.createElement('a');
+            link.href = social.url;
+            link.textContent = social.name;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            contactSocial.appendChild(link);
+        });
+    }
+}
 
 // Mobile navigation toggle
 const navToggle = document.querySelector('.nav-toggle');
@@ -291,6 +354,7 @@ function setupShopFilters() {
 
 // Initialize based on current page
 document.addEventListener('DOMContentLoaded', () => {
+    loadSiteSettings();
     populateFeaturedWorks();
     populateAllWorks();
     populateShop();

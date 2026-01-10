@@ -1,0 +1,18 @@
+{
+  "_comment": "✏️ SITE-WIDE SETTINGS - Edit here to update across ALL pages!",
+
+  "artistName": "Kayla Carabes",
+  "email": "kjcarabes@gmail.com",
+
+  "socialLinks": [
+    {
+      "name": "Instagram",
+      "url": "https://instagram.com/kayla_carabes"
+    }
+  ],
+
+  "_socialLinksHelp": "To add a new social link, copy the format above. Examples:",
+  "_example1": "{ \"name\": \"Etsy\", \"url\": \"https://etsy.com/shop/yourshop\" }",
+  "_example2": "{ \"name\": \"TikTok\", \"url\": \"https://tiktok.com/@username\" }",
+  "_example3": "{ \"name\": \"Twitter\", \"url\": \"https://twitter.com/username\" }"
+}
