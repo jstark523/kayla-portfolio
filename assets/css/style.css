@@ -806,6 +806,26 @@ img {
 .loading {
     display: flex;
     justify-content: center;
-    padding: var(--spacing-lg);
-    color: var(--color-text-light);
+    align-items: center;
+    padding: var(--spacing-xl);
+    width: 100%;
+}
+
+.loading img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
 }

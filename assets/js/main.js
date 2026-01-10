@@ -14,6 +14,11 @@ document.querySelectorAll('#year').forEach(el => {
     el.textContent = new Date().getFullYear();
 });
 
+// 🍑
+if (new URLSearchParams(window.location.search).get('ass') === 'phat') {
+    document.body.style.cursor = 'url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22><text y=%2224%22 font-size=%2224%22>🍑</text></svg>") 16 16, auto';
+}
+
 // ===========================================
 // SITE-WIDE SETTINGS
 // ===========================================
