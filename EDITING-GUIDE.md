@@ -1,20 +1,19 @@
 # How to Edit Your Portfolio Website
 
-Hey! This guide will help you update your website. Don't worry - it's simpler than it looks!
+Heyyyyy HB. This guide will help you update your website. Don't worry - you are a coder now 
+ദ്ദി ˉ͈̀꒳ˉ͈́ )✧
 
 ---
 
 ## Before You Start Editing
 
-**Always pull the latest changes first!** The shop syncs automatically from Stripe, so the repo may have changed since you last worked on it.
+**Always pull the latest changes first!** The shop syncs automatically from Stripe, so the code may have changed since you last worked on it.
 
-In your terminal, run:
+In your terminal (if you don't see it: hover to top menu bar -> click terminal -> new terminal), run:
 ```
 git fetch
 git pull
 ```
-
-Or in GitHub Desktop: click "Fetch origin" then "Pull origin" if there are changes.
 
 ---
 
@@ -28,7 +27,7 @@ Or in GitHub Desktop: click "Fetch origin" then "Pull origin" if there are chang
 | Update your bio | `about.html` |
 | Change colors/fonts | `assets/css/style.css` |
 | Replace images | `assets/images/` folder |
-| Change homepage tagline | `index.html` |
+| Change hero slideshow & taglines | `content/works.json` (heroFeature + tagline) |
 
 ⚠️ **Don't edit `content/products.json` directly** - it's auto-generated from Stripe and will be overwritten!
 
@@ -72,14 +71,20 @@ Open `content/works.json` and add a new entry. Copy this template:
   "category": "Paintings",
   "image": "assets/images/your-image-filename.jpg",
   "description": "Description of your piece.",
-  "featured": true
+  "featured": true,
+  "heroFeature": true,
+  "tagline": "Your artistic tagline here"
 }
 ```
 
-**Important:**
+**What each field does:**
+- `featured: true` = shows in "Selected Work" grid on homepage
+- `heroFeature: true` = shows in the big hero slideshow at top of homepage
+- `tagline` = text shown below the image in the hero slideshow (required if heroFeature is true)
 - Put a comma after the previous artwork's `}` before adding yours
-- `featured: true` = shows on homepage, `featured: false` = only on Work page
 - Categories can be anything you want: Paintings, Drawings, Digital, Photography, etc.
+
+**Hero Slideshow:** Works with both `heroFeature: true` AND a `tagline` will cycle through the homepage hero. Visitors can use the arrows or wait 5 seconds for auto-advance.
 
 ### Example: Before and After
 

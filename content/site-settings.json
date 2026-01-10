@@ -11,8 +11,20 @@
     }
   ],
 
+  "newsletter": {
+    "enabled": true,
+    "formAction": "https://script.google.com/macros/s/AKfycbyzp4sOYUuB2UTqrjVOHjfJLMjBPybmsD2J7k9bAZSxxf2xWZfTB9B5_rikQw_jUeXe/exec",
+    "heading": "Stay in the loop",
+    "message": "Get updates on new work, shop drops, and upcoming shows.",
+    "placeholder": "your@email.com",
+    "buttonText": "Subscribe",
+    "successMessage": "Thanks for subscribing!",
+    "showAfterDays": 7
+  },
+
   "_socialLinksHelp": "To add a new social link, copy the format above. Examples:",
   "_example1": "{ \"name\": \"Etsy\", \"url\": \"https://etsy.com/shop/yourshop\" }",
   "_example2": "{ \"name\": \"TikTok\", \"url\": \"https://tiktok.com/@username\" }",
-  "_example3": "{ \"name\": \"Twitter\", \"url\": \"https://twitter.com/username\" }"
+  "_example3": "{ \"name\": \"Twitter\", \"url\": \"https://twitter.com/username\" }",
+  "_newsletterHelp": "See EDITING-GUIDE.md for Google Sheets setup. Set enabled: false to disable."
 }

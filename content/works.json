@@ -1,6 +1,6 @@
 {
   "_comment": "✏️ THIS IS YOUR ARTWORK DATABASE - Edit this file to add/remove works!",
-  "_instructions": "Each artwork needs: id, title, year, category, image, and optionally description and featured",
+  "_instructions": "Each artwork needs: id, title, year, category, image. Optional: description, featured, heroFeature, tagline",
 
   "works": [
     {
@@ -10,7 +10,9 @@
       "category": "Paintings",
       "image": "assets/images/sparkle-face.jpeg",
       "description": "",
-      "featured": true
+      "featured": true,
+      "heroFeature": true,
+      "tagline": "Where color meets feeling"
     },
     {
       "id": "horses",
@@ -19,7 +21,9 @@
       "category": "Paintings",
       "image": "assets/images/horses.jpeg",
       "description": "",
-      "featured": true
+      "featured": true,
+      "heroFeature": true,
+      "tagline": "Movement captured in paint"
     },
     {
       "id": "fire",
@@ -28,7 +32,9 @@
       "category": "Paintings",
       "image": "assets/images/fire.jpeg",
       "description": "",
-      "featured": true
+      "featured": true,
+      "heroFeature": true,
+      "tagline": "Light that dances"
     },
     {
       "id": "lake-self",

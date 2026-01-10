@@ -20,6 +20,114 @@ if (new URLSearchParams(window.location.search).get('ass') === 'phat') {
 }
 
 // ===========================================
+// NEWSLETTER POPUP
+// ===========================================
+
+async function initNewsletter() {
+    // Check if already subscribed
+    if (localStorage.getItem('newsletter_subscribed')) return;
+
+    // Check if dismissed recently
+    const dismissed = localStorage.getItem('newsletter_dismissed');
+    if (dismissed) {
+        const dismissedDate = new Date(parseInt(dismissed));
+        const now = new Date();
+        const daysSince = (now - dismissedDate) / (1000 * 60 * 60 * 24);
+
+        // Load settings to check showAfterDays
+        try {
+            const response = await fetch('content/site-settings.json');
+            const settings = await response.json();
+            const showAfterDays = settings.newsletter?.showAfterDays || 7;
+
+            if (daysSince < showAfterDays) return;
+        } catch {
+            if (daysSince < 7) return; // Default 7 days
+        }
+    }
+
+    // Load newsletter settings
+    try {
+        const response = await fetch('content/site-settings.json');
+        const settings = await response.json();
+
+        if (!settings.newsletter?.enabled) return;
+
+        const nl = settings.newsletter;
+
+        // Create popup HTML
+        const popup = document.createElement('div');
+        popup.className = 'newsletter-popup';
+        popup.id = 'newsletter-popup';
+        popup.innerHTML = `
+            <button class="newsletter-popup-close" aria-label="Close">&times;</button>
+            <h3>${nl.heading}</h3>
+            <p>${nl.message}</p>
+            <form class="newsletter-form" action="${nl.formAction}" method="POST">
+                <input type="email" name="email" placeholder="${nl.placeholder}" required>
+                <button type="submit">${nl.buttonText}</button>
+            </form>
+        `;
+
+        document.body.appendChild(popup);
+
+        // Show popup after 3 seconds
+        setTimeout(() => popup.classList.add('active'), 3000);
+
+        // Close button
+        popup.querySelector('.newsletter-popup-close').addEventListener('click', () => {
+            popup.classList.remove('active');
+            localStorage.setItem('newsletter_dismissed', Date.now().toString());
+        });
+
+        // Form submission
+        popup.querySelector('.newsletter-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const email = form.querySelector('input[type="email"]').value;
+            const submitBtn = form.querySelector('button');
+            submitBtn.textContent = '...';
+            submitBtn.disabled = true;
+
+            try {
+                // Google Apps Script requires specific handling
+                const formData = new FormData();
+                formData.append('email', email);
+                formData.append('timestamp', new Date().toISOString());
+
+                await fetch(nl.formAction, {
+                    method: 'POST',
+                    mode: 'no-cors', // Required for Google Apps Script
+                    body: formData
+                });
+
+                // Show success (no-cors means we can't read response, but assume success)
+                popup.innerHTML = `
+                    <button class="newsletter-popup-close" aria-label="Close">&times;</button>
+                    <p class="newsletter-success">${nl.successMessage}</p>
+                `;
+                popup.querySelector('.newsletter-popup-close').addEventListener('click', () => {
+                    popup.classList.remove('active');
+                });
+
+                localStorage.setItem('newsletter_subscribed', 'true');
+
+                // Auto-close after 3 seconds
+                setTimeout(() => popup.classList.remove('active'), 3000);
+
+            } catch (error) {
+                console.error('Newsletter signup error:', error);
+                submitBtn.textContent = nl.buttonText;
+                submitBtn.disabled = false;
+            }
+        });
+
+    } catch (error) {
+        console.error('Error loading newsletter settings:', error);
+    }
+}
+
+// ===========================================
 // SITE-WIDE SETTINGS
 // ===========================================
 
@@ -128,6 +236,90 @@ function createWorkItem(work) {
     `;
 
     return link;
+}
+
+// Hero slideshow functionality
+async function initHeroSlideshow() {
+    const slideshow = document.getElementById('hero-slideshow');
+    const taglineEl = document.getElementById('hero-tagline');
+    if (!slideshow || !taglineEl) return;
+
+    const works = await loadWorks();
+    const heroWorks = works.filter(w => w.heroFeature && w.tagline);
+
+    if (heroWorks.length === 0) return;
+
+    // Create all slide images
+    heroWorks.forEach((work, index) => {
+        const img = document.createElement('img');
+        img.src = work.image;
+        img.alt = work.title;
+        img.className = 'hero-slide' + (index === 0 ? ' active' : '');
+        img.dataset.tagline = work.tagline;
+        slideshow.appendChild(img);
+    });
+
+    // Set initial tagline
+    taglineEl.textContent = heroWorks[0].tagline;
+    taglineEl.classList.add('active');
+
+    // If only one slide, no need for navigation
+    if (heroWorks.length === 1) return;
+
+    // Add navigation arrows
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'hero-arrow hero-arrow--prev';
+    prevBtn.innerHTML = '&larr;';
+    prevBtn.setAttribute('aria-label', 'Previous');
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'hero-arrow hero-arrow--next';
+    nextBtn.innerHTML = '&rarr;';
+    nextBtn.setAttribute('aria-label', 'Next');
+
+    slideshow.appendChild(prevBtn);
+    slideshow.appendChild(nextBtn);
+
+    let currentIndex = 0;
+    const slides = slideshow.querySelectorAll('.hero-slide');
+    let autoAdvance;
+
+    const goToSlide = (newIndex) => {
+        // Crossfade: fade out current, fade in next simultaneously
+        slides[currentIndex].classList.remove('active');
+        taglineEl.classList.remove('active');
+
+        currentIndex = newIndex;
+        if (currentIndex < 0) currentIndex = heroWorks.length - 1;
+        if (currentIndex >= heroWorks.length) currentIndex = 0;
+
+        slides[currentIndex].classList.add('active');
+
+        // Slight delay for tagline text change
+        setTimeout(() => {
+            taglineEl.textContent = heroWorks[currentIndex].tagline;
+            taglineEl.classList.add('active');
+        }, 200);
+    };
+
+    const resetAutoAdvance = () => {
+        clearInterval(autoAdvance);
+        autoAdvance = setInterval(() => goToSlide(currentIndex + 1), 5000);
+    };
+
+    // Arrow click handlers
+    prevBtn.addEventListener('click', () => {
+        goToSlide(currentIndex - 1);
+        resetAutoAdvance();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        goToSlide(currentIndex + 1);
+        resetAutoAdvance();
+    });
+
+    // Start auto-advance
+    autoAdvance = setInterval(() => goToSlide(currentIndex + 1), 5000);
 }
 
 // Populate featured works on homepage
@@ -296,22 +488,30 @@ function createProductCard(product, works = []) {
 
     // Use product description, or fall back to linked work's description
     let description = product.description;
-    if (!description && product.workId) {
-        const linkedWork = works.find(w => w.id === product.workId);
-        if (linkedWork) {
+    let linkedWork = null;
+    if (product.workId) {
+        linkedWork = works.find(w => w.id === product.workId);
+        if (linkedWork && !description) {
             description = linkedWork.description;
         }
     }
 
+    // Show "View artwork" link if product is linked to a work
+    const viewArtworkHtml = linkedWork
+        ? `<a href="work-detail.html?id=${product.workId}" class="product-card-link">View artwork</a>`
+        : '';
+
     article.innerHTML = `
         <div class="product-card-image">
             <img src="${product.image}" alt="${product.title}" loading="lazy">
+            <span class="product-card-badge">${product.category}</span>
         </div>
         <div class="product-card-info">
             <h3 class="product-card-title">${product.title}</h3>
             ${description ? `<p class="product-card-description">${description}</p>` : ''}
             <p class="product-card-price">$${product.price}</p>
             ${buttonHtml}
+            ${viewArtworkHtml}
         </div>
     `;
 
@@ -451,11 +651,43 @@ async function loadWorkDetail() {
     }
 }
 
+// Fade in images when loaded
+function setupImageFadeIn() {
+    const handleImage = (img) => {
+        if (img.complete) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', () => img.classList.add('loaded'));
+        }
+    };
+
+    // Handle existing images
+    document.querySelectorAll('.work-item img, .product-card-image img').forEach(handleImage);
+
+    // Watch for dynamically added images
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === 1) {
+                    node.querySelectorAll?.('.work-item img, .product-card-image img').forEach(handleImage);
+                    if (node.matches?.('.work-item img, .product-card-image img')) {
+                        handleImage(node);
+                    }
+                }
+            });
+        });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+}
+
 // Initialize based on current page
 document.addEventListener('DOMContentLoaded', () => {
     loadSiteSettings();
+    initHeroSlideshow();
     populateFeaturedWorks();
     populateAllWorks();
     populateShop();
     loadWorkDetail();
+    setupImageFadeIn();
+    initNewsletter();
 });
