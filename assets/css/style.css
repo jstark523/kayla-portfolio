@@ -144,7 +144,7 @@ img {
     transition: opacity 0.8s ease;
 }
 
-.hero-slide.active {
+.hero-slide.loaded.active {
     opacity: 1;
 }
 
@@ -153,30 +153,25 @@ img {
     top: 50%;
     transform: translateY(-50%);
     background: none;
-    border: 1px solid var(--color-border);
-    color: var(--color-text);
-    width: 48px;
-    height: 48px;
-    font-size: 1.25rem;
+    border: none;
+    color: var(--color-text-light);
+    padding: 1rem;
+    font-size: 0.875rem;
     cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: color 0.2s;
+    letter-spacing: 0.1em;
 }
 
 .hero-arrow:hover {
-    background: var(--color-text);
-    color: var(--color-bg);
-    border-color: var(--color-text);
+    color: var(--color-text);
 }
 
 .hero-arrow--prev {
-    left: var(--spacing-md);
+    left: 0;
 }
 
 .hero-arrow--next {
-    right: var(--spacing-md);
+    right: 0;
 }
 
 .hero-text {
@@ -971,15 +966,17 @@ img {
 
 .newsletter-form {
     display: flex;
+    flex-direction: column;
     gap: 0.5rem;
 }
 
 .newsletter-form input[type="email"] {
-    flex: 1;
+    width: 100%;
     padding: 0.6rem 0.75rem;
     border: 1px solid var(--color-border);
     font-size: 0.85rem;
     font-family: inherit;
+    box-sizing: border-box;
 }
 
 .newsletter-form input[type="email"]:focus {
@@ -988,6 +985,7 @@ img {
 }
 
 .newsletter-form button {
+    width: 100%;
     padding: 0.6rem 1rem;
     background: var(--color-text);
     color: var(--color-bg);
@@ -998,6 +996,7 @@ img {
     letter-spacing: 0.05em;
     cursor: pointer;
     transition: opacity 0.2s;
+    box-sizing: border-box;
 }
 
 .newsletter-form button:hover {
@@ -1016,9 +1015,5 @@ img {
         right: var(--spacing-sm);
         bottom: var(--spacing-sm);
         max-width: none;
-    }
-
-    .newsletter-form {
-        flex-direction: column;
     }
 }

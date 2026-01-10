@@ -256,6 +256,14 @@ async function initHeroSlideshow() {
         img.alt = work.title;
         img.className = 'hero-slide' + (index === 0 ? ' active' : '');
         img.dataset.tagline = work.tagline;
+
+        // Fade in when loaded
+        if (img.complete) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', () => img.classList.add('loaded'));
+        }
+
         slideshow.appendChild(img);
     });
 
@@ -269,12 +277,12 @@ async function initHeroSlideshow() {
     // Add navigation arrows
     const prevBtn = document.createElement('button');
     prevBtn.className = 'hero-arrow hero-arrow--prev';
-    prevBtn.innerHTML = '&larr;';
+    prevBtn.textContent = 'PREV';
     prevBtn.setAttribute('aria-label', 'Previous');
 
     const nextBtn = document.createElement('button');
     nextBtn.className = 'hero-arrow hero-arrow--next';
-    nextBtn.innerHTML = '&rarr;';
+    nextBtn.textContent = 'NEXT';
     nextBtn.setAttribute('aria-label', 'Next');
 
     slideshow.appendChild(prevBtn);
