@@ -1,42 +1,17 @@
 {
-  "_comment": "✏️ YOUR SHOP PRODUCTS - Edit this file to add/remove products!",
-  "_instructions": "Each product needs: id, title, category, price, image. Optional: description, stripeLink, sold",
-
+  "_comment": "✏️ AUTO-GENERATED FROM STRIPE - Do not edit manually!",
+  "_instructions": "Manage products in Stripe Dashboard. This file syncs automatically.",
   "products": [
     {
-      "id": "example-original",
-      "title": "Example Original Painting",
+      "id": "prod_TlSffbZWDkj6B3",
+      "title": "test art",
       "category": "Originals",
-      "price": 500,
-      "image": "assets/images/sparkle-face.jpeg",
-      "description": "Oil on canvas, 24x36 inches",
-      "stripeLink": "",
-      "sold": false
-    },
-    {
-      "id": "example-print",
-      "title": "Example Print",
-      "category": "Prints",
-      "price": 35,
-      "image": "assets/images/horses.jpeg",
-      "description": "Archival giclée print, 11x14 inches",
+      "price": 10,
+      "image": "https://files.stripe.com/links/MDB8YWNjdF8xU252ZXdJeGNRejFkNnVrfGZsX3Rlc3RfZkE2WFFHUjBOS0Q5bGlyOFdUYjBwd0xP00BlxHGSgj",
+      "description": "art is cool!",
       "stripeLink": "https://buy.stripe.com/test_5kQfZibJE5TGg4daJtcfK00",
-      "sold": false
-    },
-    {
-      "id": "example-craft",
-      "title": "Example Craft Item",
-      "category": "Crafts",
-      "price": 20,
-      "image": "assets/images/fire.jpeg",
-      "description": "Handmade sticker set",
-      "stripeLink": "",
       "sold": false
     }
   ],
-
-  "_howToAdd": "Copy one of the entries above, paste it, and change the values. Don't forget the comma after the previous entry!",
-  "_categories": "Use: Originals, Prints, or Crafts",
-  "_stripeLink": "Create a Payment Link in Stripe dashboard and paste the URL here. Leave empty if not ready to sell yet.",
-  "_sold": "Set to true when item is sold (for one-of-a-kind originals)"
+  "_lastSync": "2026-01-10T07:37:29.551Z"
 }
