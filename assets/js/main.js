@@ -199,8 +199,99 @@ if (lightbox) {
     });
 }
 
+// ===========================================
+// SHOP FUNCTIONALITY
+// ===========================================
+
+// Load products from JSON
+async function loadProducts() {
+    try {
+        const response = await fetch('content/products.json');
+        const data = await response.json();
+        return data.products;
+    } catch (error) {
+        console.error('Error loading products:', error);
+        return [];
+    }
+}
+
+// Create a product card element
+function createProductCard(product) {
+    const article = document.createElement('article');
+    article.className = 'product-card';
+    article.dataset.category = product.category;
+
+    let buttonHtml;
+    if (product.sold) {
+        buttonHtml = '<span class="product-card-btn sold">Sold</span>';
+    } else if (product.stripeLink) {
+        buttonHtml = `<a href="${product.stripeLink}" target="_blank" rel="noopener" class="product-card-btn">Buy Now</a>`;
+    } else {
+        buttonHtml = '<span class="product-card-btn coming-soon">Coming Soon</span>';
+    }
+
+    article.innerHTML = `
+        <div class="product-card-image">
+            <img src="${product.image}" alt="${product.title}" loading="lazy">
+        </div>
+        <div class="product-card-info">
+            <h3 class="product-card-title">${product.title}</h3>
+            ${product.description ? `<p class="product-card-description">${product.description}</p>` : ''}
+            <p class="product-card-price">$${product.price}</p>
+            ${buttonHtml}
+        </div>
+    `;
+
+    return article;
+}
+
+// Populate shop page
+async function populateShop() {
+    const container = document.getElementById('product-grid');
+    if (!container) return;
+
+    const products = await loadProducts();
+
+    container.innerHTML = '';
+    products.forEach(product => {
+        container.appendChild(createProductCard(product));
+    });
+
+    // Setup filter functionality
+    setupShopFilters();
+}
+
+// Setup shop category filters
+function setupShopFilters() {
+    const filtersContainer = document.getElementById('shop-filters');
+    if (!filtersContainer) return;
+
+    filtersContainer.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('filter-btn')) return;
+
+        // Update active state
+        filtersContainer.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        e.target.classList.add('active');
+
+        // Filter items
+        const filter = e.target.dataset.filter;
+        const items = document.querySelectorAll('.product-card');
+
+        items.forEach(item => {
+            if (filter === 'all' || item.dataset.category === filter) {
+                item.classList.remove('hidden');
+            } else {
+                item.classList.add('hidden');
+            }
+        });
+    });
+}
+
 // Initialize based on current page
 document.addEventListener('DOMContentLoaded', () => {
     populateFeaturedWorks();
     populateAllWorks();
+    populateShop();
 });

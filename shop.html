@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact | Kayla</title>
+    <title>Shop | Kayla Carabes</title>
     <link rel="icon" type="image/jpeg" href="assets/images/color-theory.jpeg">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,29 +25,25 @@
         </button>
     </nav>
 
-    <main class="contact-layout">
-        <h1>Get in Touch</h1>
+    <main class="page-section" style="padding-top: calc(var(--nav-height) + var(--spacing-lg));">
+        <h1 class="page-title">Shop</h1>
 
-        <!-- ✏️ EDIT YOUR CONTACT INFO HERE -->
-        <p>
-            Interested in working together, purchasing a piece,
-            or just want to say hello? I'd love to hear from you.
-        </p>
-
-        <a href="mailto:hello@example.com" class="contact-email">hello@example.com</a>
-
-        <div class="contact-social">
-            <a href="https://instagram.com/yourusername" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://twitter.com/yourusername" target="_blank" rel="noopener">Twitter</a>
-            <!-- Add or remove social links as needed -->
+        <!-- Category filters -->
+        <div class="shop-filters" id="shop-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="Originals">Originals</button>
+            <button class="filter-btn" data-filter="Prints">Prints</button>
+            <button class="filter-btn" data-filter="Crafts">Crafts</button>
         </div>
-        <!-- END CONTACT INFO -->
 
+        <div class="product-grid" id="product-grid">
+            <p class="loading">Loading...</p>
+        </div>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; <span id="year"></span> Kayla. All rights reserved.</p>
+            <p>&copy; <span id="year"></span> Kayla Carabes. All rights reserved.</p>
             <div class="social-links">
                 <a href="https://etsy.com/shop/YOURSHOPNAME" target="_blank" rel="noopener">Etsy</a>
                 <a href="https://instagram.com/yourusername" target="_blank" rel="noopener">Instagram</a>
