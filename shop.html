@@ -25,19 +25,21 @@
         </button>
     </nav>
 
-    <main class="page-section" style="padding-top: calc(var(--nav-height) + var(--spacing-lg));">
-        <h1 class="page-title">Shop</h1>
+    <main class="shop-page">
+        <aside class="shop-sidebar">
+            <h1 class="shop-title">Shop</h1>
+            <nav class="shop-filters" id="shop-filters">
+                <button class="shop-filter-btn active" data-filter="all">All</button>
+                <button class="shop-filter-btn" data-filter="Originals">Originals</button>
+                <button class="shop-filter-btn" data-filter="Prints">Prints</button>
+                <button class="shop-filter-btn" data-filter="Crafts">Crafts</button>
+            </nav>
+        </aside>
 
-        <!-- Category filters -->
-        <div class="shop-filters" id="shop-filters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="Originals">Originals</button>
-            <button class="filter-btn" data-filter="Prints">Prints</button>
-            <button class="filter-btn" data-filter="Crafts">Crafts</button>
-        </div>
-
-        <div class="product-grid" id="product-grid">
-            <p class="loading">Loading...</p>
+        <div class="shop-content">
+            <div class="product-grid" id="product-grid">
+                <p class="loading">Loading...</p>
+            </div>
         </div>
     </main>
 

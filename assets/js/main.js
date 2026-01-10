@@ -330,10 +330,10 @@ function setupShopFilters() {
     if (!filtersContainer) return;
 
     filtersContainer.addEventListener('click', (e) => {
-        if (!e.target.classList.contains('filter-btn')) return;
+        if (!e.target.classList.contains('shop-filter-btn')) return;
 
         // Update active state
-        filtersContainer.querySelectorAll('.filter-btn').forEach(btn => {
+        filtersContainer.querySelectorAll('.shop-filter-btn').forEach(btn => {
             btn.classList.remove('active');
         });
         e.target.classList.add('active');
