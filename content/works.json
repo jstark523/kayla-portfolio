@@ -1,0 +1,64 @@
+{
+  "_comment": "✏️ THIS IS YOUR ARTWORK DATABASE - Edit this file to add/remove works!",
+  "_instructions": "Each artwork needs: id, title, year, category, image, and optionally description and featured",
+
+  "works": [
+    {
+      "id": "artwork-1",
+      "title": "Placeholder Artwork One",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/work-1.svg",
+      "description": "Description of this piece. Medium, dimensions, inspiration, etc.",
+      "featured": true
+    },
+    {
+      "id": "artwork-2",
+      "title": "Placeholder Artwork Two",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/work-2.svg",
+      "description": "Description of this piece.",
+      "featured": true
+    },
+    {
+      "id": "artwork-3",
+      "title": "Placeholder Artwork Three",
+      "year": "2023",
+      "category": "Drawings",
+      "image": "assets/images/work-3.svg",
+      "description": "Description of this piece.",
+      "featured": true
+    },
+    {
+      "id": "artwork-4",
+      "title": "Placeholder Artwork Four",
+      "year": "2023",
+      "category": "Drawings",
+      "image": "assets/images/work-4.svg",
+      "description": "Description of this piece.",
+      "featured": false
+    },
+    {
+      "id": "artwork-5",
+      "title": "Placeholder Artwork Five",
+      "year": "2023",
+      "category": "Mixed Media",
+      "image": "assets/images/work-5.svg",
+      "description": "Description of this piece.",
+      "featured": true
+    },
+    {
+      "id": "artwork-6",
+      "title": "Placeholder Artwork Six",
+      "year": "2022",
+      "category": "Mixed Media",
+      "image": "assets/images/work-6.svg",
+      "description": "Description of this piece.",
+      "featured": false
+    }
+  ],
+
+  "_howToAdd": "Copy one of the entries above, paste it, and change the values. Make sure to add a comma after the previous entry!",
+  "_categories": "You can use any category names you want: Paintings, Drawings, Sculptures, Digital, Photography, etc."
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <rect fill="#f8f5f0" width="800" height="1000"/>
+  <rect fill="#f0ebe5" x="80" y="80" width="640" height="840" rx="2"/>
+  <path d="M200 600 Q400 200 600 600" stroke="#d0c8c0" stroke-width="40" fill="none" opacity="0.6"/>
+  <path d="M250 650 Q400 350 550 650" stroke="#e0d8d0" stroke-width="25" fill="none" opacity="0.5"/>
+  <text x="400" y="900" font-family="system-ui, sans-serif" font-size="14" fill="#999" text-anchor="middle">Artwork 3</text>
+</svg>

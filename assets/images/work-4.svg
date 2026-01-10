@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <rect fill="#f2f5f0" width="800" height="1000"/>
+  <rect fill="#e5e8e0" x="80" y="80" width="640" height="840" rx="2"/>
+  <polygon points="400,200 550,500 250,500" fill="#d5d8d0" opacity="0.6"/>
+  <polygon points="400,350 500,550 300,550" fill="#c5c8c0" opacity="0.5"/>
+  <text x="400" y="900" font-family="system-ui, sans-serif" font-size="14" fill="#999" text-anchor="middle">Artwork 4</text>
+</svg>
