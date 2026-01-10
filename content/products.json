@@ -10,8 +10,9 @@
       "image": "https://files.stripe.com/links/MDB8YWNjdF8xU252ZXdJeGNRejFkNnVrfGZsX3Rlc3RfZkE2WFFHUjBOS0Q5bGlyOFdUYjBwd0xP00BlxHGSgj",
       "description": "art is cool!",
       "stripeLink": "https://buy.stripe.com/test_5kQfZibJE5TGg4daJtcfK00",
-      "sold": false
+      "sold": false,
+      "workId": "bears"
     }
   ],
-  "_lastSync": "2026-01-10T07:37:29.551Z"
+  "_lastSync": "2026-01-10T08:32:05.933Z"
 }
