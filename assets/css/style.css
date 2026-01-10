@@ -120,7 +120,7 @@ img {
    HERO SECTION
    =========================================== */
 .hero {
-    min-height: 100vh;
+    height: 100vh;
     padding-top: var(--nav-height);
     display: flex;
     flex-direction: column;
@@ -135,7 +135,7 @@ img {
 }
 
 .hero-image img {
-    max-height: 70vh;
+    max-height: 60vh;
     width: auto;
     object-fit: contain;
 }
