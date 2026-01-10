@@ -4,57 +4,120 @@
 
   "works": [
     {
-      "id": "artwork-1",
-      "title": "Placeholder Artwork One",
+      "id": "sparkle-face",
+      "title": "Sparkle Face",
       "year": "2024",
       "category": "Paintings",
-      "image": "assets/images/work-1.svg",
-      "description": "Description of this piece. Medium, dimensions, inspiration, etc.",
+      "image": "assets/images/sparkle-face.jpeg",
+      "description": "",
       "featured": true
     },
     {
-      "id": "artwork-2",
-      "title": "Placeholder Artwork Two",
+      "id": "horses",
+      "title": "Horses",
       "year": "2024",
       "category": "Paintings",
-      "image": "assets/images/work-2.svg",
-      "description": "Description of this piece.",
+      "image": "assets/images/horses.jpeg",
+      "description": "",
       "featured": true
     },
     {
-      "id": "artwork-3",
-      "title": "Placeholder Artwork Three",
-      "year": "2023",
-      "category": "Drawings",
-      "image": "assets/images/work-3.svg",
-      "description": "Description of this piece.",
+      "id": "fire",
+      "title": "Fire",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/fire.jpeg",
+      "description": "",
       "featured": true
     },
     {
-      "id": "artwork-4",
-      "title": "Placeholder Artwork Four",
-      "year": "2023",
-      "category": "Drawings",
-      "image": "assets/images/work-4.svg",
-      "description": "Description of this piece.",
+      "id": "lake-self",
+      "title": "Lake Self",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/lake-self.jpeg",
+      "description": "",
+      "featured": true
+    },
+    {
+      "id": "birb",
+      "title": "Birb",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/birb.jpeg",
+      "description": "",
       "featured": false
     },
     {
-      "id": "artwork-5",
-      "title": "Placeholder Artwork Five",
-      "year": "2023",
-      "category": "Mixed Media",
-      "image": "assets/images/work-5.svg",
-      "description": "Description of this piece.",
-      "featured": true
+      "id": "bears",
+      "title": "Bears",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/bears.jpeg",
+      "description": "",
+      "featured": false
     },
     {
-      "id": "artwork-6",
-      "title": "Placeholder Artwork Six",
-      "year": "2022",
-      "category": "Mixed Media",
-      "image": "assets/images/work-6.svg",
-      "description": "Description of this piece.",
+      "id": "donkey-moon",
+      "title": "Donkey Moon",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/donkey-moon.jpeg",
+      "description": "",
+      "featured": false
+    },
+    {
+      "id": "teeth",
+      "title": "Teeth",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/teeth.jpeg",
+      "description": "",
+      "featured": false
+    },
+    {
+      "id": "trees",
+      "title": "Trees",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/trees.jpeg",
+      "description": "",
+      "featured": false
+    },
+    {
+      "id": "water",
+      "title": "Water",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/water.jpeg",
+      "description": "",
+      "featured": false
+    },
+    {
+      "id": "wood",
+      "title": "Wood",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/wood.jpeg",
+      "description": "",
+      "featured": false
+    },
+    {
+      "id": "woof",
+      "title": "Woof",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/woof.jpeg",
+      "description": "",
+      "featured": false
+    },
+    {
+      "id": "natural",
+      "title": "Natural",
+      "year": "2024",
+      "category": "Paintings",
+      "image": "assets/images/natural.jpeg",
+      "description": "",
       "featured": false
     }
   ],

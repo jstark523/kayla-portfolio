@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
-  <rect fill="#f5f5f2" width="800" height="1000"/>
-  <rect fill="#e8e8e5" x="80" y="80" width="640" height="840" rx="2"/>
-  <line x1="200" y1="300" x2="600" y2="300" stroke="#d8d8d5" stroke-width="20" opacity="0.6"/>
-  <line x1="200" y1="400" x2="550" y2="400" stroke="#c8c8c5" stroke-width="15" opacity="0.5"/>
-  <line x1="200" y1="500" x2="500" y2="500" stroke="#d0d0cd" stroke-width="18" opacity="0.55"/>
-  <line x1="200" y1="600" x2="580" y2="600" stroke="#d8d8d5" stroke-width="12" opacity="0.45"/>
-  <text x="400" y="900" font-family="system-ui, sans-serif" font-size="14" fill="#999" text-anchor="middle">Artwork 6</text>
-</svg>

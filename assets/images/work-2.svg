@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
-  <rect fill="#f0f2f5" width="800" height="1000"/>
-  <rect fill="#e0e4e8" x="80" y="80" width="640" height="840" rx="2"/>
-  <rect x="200" y="250" width="200" height="300" fill="#d0d4d8" opacity="0.7" transform="rotate(5 300 400)"/>
-  <rect x="380" y="300" width="180" height="250" fill="#c0c4c8" opacity="0.6" transform="rotate(-3 470 425)"/>
-  <text x="400" y="900" font-family="system-ui, sans-serif" font-size="14" fill="#999" text-anchor="middle">Artwork 2</text>
-</svg>
