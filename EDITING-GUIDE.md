@@ -23,6 +23,7 @@ git pull
 |---------------------|----------------|
 | Add/remove artwork | `content/works.json` |
 | Add/remove shop products | Stripe Dashboard (syncs automatically!) |
+| Add/remove blog posts | `content/blog.json` |
 | Update email & social links | `content/site-settings.json` (updates everywhere!) |
 | Update your bio | `about.html` |
 | Change colors/fonts | `assets/css/style.css` |
@@ -267,6 +268,109 @@ Just change the text between the `<p>` and `</p>` tags. Each `<p>...</p>` is a p
 
 ---
 
+## Adding Blog Posts
+
+Your blog is perfect for sharing work-in-progress, thoughts, and studio updates. Blog posts support multiple images that display in an artistic, scattered layout.
+
+### Open `content/blog.json`:
+
+```json
+{
+  "posts": [
+    {
+      "id": "unique-post-id",
+      "title": "Optional Title",
+      "date": "2025-02-26",
+      "images": [
+        "assets/images/blog-image-1.webp",
+        "assets/images/blog-image-2.webp"
+      ],
+      "content": "Your blog post text goes here..."
+    }
+  ]
+}
+```
+
+**What each field does:**
+- `id` - A unique identifier (use lowercase, dashes instead of spaces)
+- `title` - Optional! Leave it out for posts without a title
+- `date` - Format: `YYYY-MM-DD` (e.g., `2025-02-26` for Feb 26, 2025)
+- `images` - An array of image paths (can be 1 or many!)
+- `content` - Your post text
+
+### Adding a New Blog Post
+
+1. **Add your images** to `assets/images/` folder
+2. **Open `content/blog.json`**
+3. **Add a new entry at the TOP** of the posts array (newest first):
+
+```json
+{
+  "posts": [
+    {
+      "id": "new-post",
+      "date": "2025-03-01",
+      "images": ["assets/images/new-image.webp"],
+      "content": "My new blog post about this painting..."
+    },
+    {
+      "id": "older-post",
+      ...
+    }
+  ]
+}
+```
+
+**Don't forget:** Add a comma after the `}` of your new post!
+
+### Multiple Images
+
+When you add multiple images, they display in an artistic scattered/overlapping layout:
+
+```json
+{
+  "id": "studio-update",
+  "date": "2025-02-10",
+  "images": [
+    "assets/images/painting-1.webp",
+    "assets/images/painting-2.webp",
+    "assets/images/detail-shot.webp"
+  ],
+  "content": "Working on several pieces this week..."
+}
+```
+
+Images are clickable - visitors can click to view full size.
+
+### Posts With or Without Titles
+
+**With title:**
+```json
+{
+  "id": "drawing-with-light",
+  "title": "Drawing with light",
+  "date": "2025-02-17",
+  "images": ["assets/images/blog-2.webp"],
+  "content": "Turned this painting around and put it up to my window..."
+}
+```
+
+**Without title (just date and content):**
+```json
+{
+  "id": "forest-painting",
+  "date": "2025-02-10",
+  "images": ["assets/images/blog-1.webp"],
+  "content": "Slowly chipping away at this forest painting..."
+}
+```
+
+### Removing a Blog Post
+
+Just delete the entire post entry from the array (including the comma before or after it).
+
+---
+
 ## Changing the Contact Page Text
 
 The email and social links on the contact page are automatically pulled from `content/site-settings.json` (see above).
@@ -381,6 +485,8 @@ Don't panic! Here's what to do:
 | Images not showing | Check the filename matches exactly (case-sensitive!) |
 | Page looks broken | You might have deleted a `<` or `>` in HTML |
 | Works page is blank | Check `works.json` for missing commas or quotes |
+| Blog page is blank | Check `blog.json` for missing commas or quotes |
+| Blog images not scattered | Need 2+ images in the `images` array for scattered layout |
 | Shop not updating | Run manual sync (Actions → Sync Stripe Products → Run workflow) |
 | Product not appearing | Check Payment Link is active in Stripe, wait for sync |
 | Wrong category | Edit product metadata in Stripe, run sync |

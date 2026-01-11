@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work | Kayla Carabes</title>
+    <title>Blog | Kayla</title>
     <link rel="icon" type="image/jpeg" href="assets/images/color-theory.jpeg">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,28 +26,30 @@
         </button>
     </nav>
 
-    <main class="work-detail-page">
-        <a href="work.html" class="back-link">&larr; Back to Work</a>
-
-        <div class="work-detail-container" id="work-detail">
-            <div class="loading"><img src="assets/images/color-theory.jpeg" alt="Loading"></div>
+    <main class="page-section blog-page">
+        <h1 class="page-title">Blog</h1>
+        <div class="blog-grid" id="blog-grid">
+            <!-- Populated by JavaScript from content/blog.json -->
+            <div class="loading">
+                <img src="assets/images/color-theory.jpeg" alt="Loading...">
+            </div>
         </div>
     </main>
 
+    <!-- Lightbox for viewing images -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <img src="" alt="Full size image">
+    </div>
+
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; <span id="year"></span> Kayla Carabes. All rights reserved.</p>
+            <p>&copy; <span id="year"></span> Kayla. All rights reserved.</p>
             <div class="social-links">
                 <!-- Populated by JS from site-settings.json -->
             </div>
         </div>
     </footer>
-
-    <!-- Lightbox for zooming images -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close">&times;</button>
-        <img src="" alt="">
-    </div>
 
     <script src="assets/js/main.js"></script>
 </body>

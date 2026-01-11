@@ -274,20 +274,6 @@ async function initHeroSlideshow() {
     // If only one slide, no need for navigation
     if (heroWorks.length === 1) return;
 
-    // Add navigation arrows
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'hero-arrow hero-arrow--prev';
-    prevBtn.textContent = 'PREV';
-    prevBtn.setAttribute('aria-label', 'Previous');
-
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'hero-arrow hero-arrow--next';
-    nextBtn.textContent = 'NEXT';
-    nextBtn.setAttribute('aria-label', 'Next');
-
-    slideshow.appendChild(prevBtn);
-    slideshow.appendChild(nextBtn);
-
     let currentIndex = 0;
     const slides = slideshow.querySelectorAll('.hero-slide');
     let autoAdvance;
@@ -315,14 +301,17 @@ async function initHeroSlideshow() {
         autoAdvance = setInterval(() => goToSlide(currentIndex + 1), 5000);
     };
 
-    // Arrow click handlers
-    prevBtn.addEventListener('click', () => {
-        goToSlide(currentIndex - 1);
-        resetAutoAdvance();
-    });
+    // Click on left/right side to navigate
+    slideshow.addEventListener('click', (e) => {
+        const rect = slideshow.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const halfWidth = rect.width / 2;
 
-    nextBtn.addEventListener('click', () => {
-        goToSlide(currentIndex + 1);
+        if (clickX < halfWidth) {
+            goToSlide(currentIndex - 1);
+        } else {
+            goToSlide(currentIndex + 1);
+        }
         resetAutoAdvance();
     });
 
@@ -575,6 +564,90 @@ function setupShopFilters() {
 }
 
 // ===========================================
+// BLOG PAGE
+// ===========================================
+
+// Load blog posts from JSON
+async function loadBlogPosts() {
+    try {
+        const response = await fetch('content/blog.json');
+        const data = await response.json();
+        return data.posts;
+    } catch (error) {
+        console.error('Error loading blog posts:', error);
+        return [];
+    }
+}
+
+// Format date for display
+function formatBlogDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+// Create a blog post element
+function createBlogPost(post) {
+    const article = document.createElement('article');
+    article.className = 'blog-post';
+
+    // Support both single image (string) and multiple images (array)
+    const images = Array.isArray(post.images) ? post.images : [post.image];
+    const hasMultipleImages = images.length > 1;
+
+    const imagesHtml = images.map((img, index) => `
+        <div class="blog-post-image">
+            <img src="${img}" alt="${post.title || 'Blog image'}" loading="lazy">
+        </div>
+    `).join('');
+
+    article.innerHTML = `
+        <div class="blog-post-images${hasMultipleImages ? ' scattered' : ''}">
+            ${imagesHtml}
+        </div>
+        <div class="blog-post-content">
+            <p class="blog-post-date">${formatBlogDate(post.date)}</p>
+            ${post.title ? `<h2 class="blog-post-title">${post.title}</h2>` : ''}
+            <p class="blog-post-text">${post.content}</p>
+        </div>
+    `;
+
+    // Add click to zoom on images
+    article.querySelectorAll('.blog-post-image').forEach((imgContainer, index) => {
+        imgContainer.addEventListener('click', () => {
+            openLightbox(images[index], post.title || 'Blog image');
+        });
+    });
+
+    return article;
+}
+
+// Populate blog page
+async function populateBlog() {
+    const container = document.getElementById('blog-grid');
+    if (!container) return;
+
+    const posts = await loadBlogPosts();
+
+    container.innerHTML = '';
+    posts.forEach(post => {
+        container.appendChild(createBlogPost(post));
+    });
+
+    // Setup image fade-in for blog posts
+    container.querySelectorAll('.blog-post-image img').forEach(img => {
+        if (img.complete) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', () => img.classList.add('loaded'));
+        }
+    });
+}
+
+// ===========================================
 // WORK DETAIL PAGE
 // ===========================================
 
@@ -695,6 +768,7 @@ document.addEventListener('DOMContentLoaded', () => {
     populateFeaturedWorks();
     populateAllWorks();
     populateShop();
+    populateBlog();
     loadWorkDetail();
     setupImageFadeIn();
     initNewsletter();

@@ -44,6 +44,7 @@ body {
     color: var(--color-text);
     background-color: var(--color-bg);
     -webkit-font-smoothing: antialiased;
+    cursor: url('../images/color-theory.cur'), auto;
 }
 
 a {
@@ -128,50 +129,23 @@ img {
 
 .hero-image {
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-lg);
     position: relative;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .hero-slide {
     position: absolute;
-    max-height: 60vh;
-    width: auto;
-    object-fit: contain;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     opacity: 0;
     transition: opacity 0.8s ease;
 }
 
 .hero-slide.loaded.active {
     opacity: 1;
-}
-
-.hero-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--color-text-light);
-    padding: 1rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: color 0.2s;
-    letter-spacing: 0.1em;
-}
-
-.hero-arrow:hover {
-    color: var(--color-text);
-}
-
-.hero-arrow--prev {
-    left: 0;
-}
-
-.hero-arrow--next {
-    right: 0;
 }
 
 .hero-text {
@@ -341,6 +315,50 @@ img {
 
 .about-content p:first-of-type {
     color: var(--color-text);
+}
+
+.exhibitions-section {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+}
+
+.exhibitions-section h2 {
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+}
+
+.exhibitions-list {
+    list-style: none;
+}
+
+.exhibitions-list li {
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.exhibitions-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.exhibition-title {
+    display: block;
+    font-weight: 400;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+}
+
+.exhibition-details {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
 }
 
 /* ===========================================
@@ -880,14 +898,173 @@ img {
 }
 
 /* ===========================================
+   BLOG PAGE
+   =========================================== */
+.blog-page {
+    padding-top: calc(var(--nav-height) + var(--spacing-lg));
+}
+
+.blog-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.blog-post {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: start;
+    padding-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+.blog-post:nth-child(even) {
+    grid-template-columns: 1fr 1.2fr;
+}
+
+.blog-post:nth-child(even) .blog-post-images {
+    order: 2;
+}
+
+.blog-post:nth-child(3n) {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.blog-post-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.blog-post-image {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.blog-post-image:hover {
+    transform: scale(1.02);
+}
+
+.blog-post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease;
+    opacity: 0;
+}
+
+.blog-post-image img.loaded {
+    opacity: 1;
+}
+
+/* Abstract scattered layout for images */
+.blog-post-images.scattered {
+    display: block;
+    position: relative;
+}
+
+.blog-post-images.scattered .blog-post-image {
+    display: inline-block;
+}
+
+.blog-post-images.scattered .blog-post-image:nth-child(1) {
+    width: 65%;
+}
+
+.blog-post-images.scattered .blog-post-image:nth-child(2) {
+    width: 45%;
+    margin-top: -15%;
+    margin-left: 50%;
+}
+
+.blog-post-images.scattered .blog-post-image:nth-child(3) {
+    width: 40%;
+    margin-top: -5%;
+    margin-left: 5%;
+}
+
+.blog-post-images.scattered .blog-post-image:nth-child(4) {
+    width: 50%;
+    margin-top: -10%;
+    margin-left: 40%;
+}
+
+/* Single image - simple layout */
+.blog-post-images:not(.scattered) .blog-post-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--color-border);
+}
+
+.blog-post-content {
+    padding: var(--spacing-sm) 0;
+}
+
+.blog-post-date {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-light);
+    margin-bottom: 0.5rem;
+}
+
+.blog-post-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: var(--spacing-sm);
+}
+
+.blog-post-text {
+    color: var(--color-text-light);
+    line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+    .blog-post,
+    .blog-post:nth-child(even),
+    .blog-post:nth-child(3n) {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+        max-width: none;
+    }
+
+    .blog-post:nth-child(even) .blog-post-images {
+        order: 0;
+    }
+
+    .blog-post-title {
+        font-size: 1.25rem;
+    }
+
+    .blog-post-images.scattered .blog-post-image:nth-child(1) {
+        width: 75%;
+    }
+
+    .blog-post-images.scattered .blog-post-image:nth-child(2) {
+        width: 55%;
+        margin-top: -10%;
+        margin-left: 40%;
+    }
+}
+
+/* ===========================================
    LOADING STATES
    =========================================== */
 .loading {
+    grid-column: 1 / -1;
     display: flex;
     justify-content: center;
     align-items: center;
+    align-self: center;
+    margin: 0 auto;
     padding: var(--spacing-xl);
     width: 100%;
+    min-height: 200px;
 }
 
 .loading img {
@@ -895,16 +1072,20 @@ img {
     height: 60px;
     object-fit: cover;
     border-radius: 50%;
-    animation: pulse 1.5s ease-in-out infinite;
+    filter: grayscale(100%);
+    opacity: 0.5;
+    animation: loading-pulse 1.5s ease-in-out infinite;
 }
 
-@keyframes pulse {
+@keyframes loading-pulse {
     0%, 100% {
+        filter: grayscale(100%);
         opacity: 0.4;
         transform: scale(0.95);
     }
     50% {
-        opacity: 1;
+        filter: grayscale(20%);
+        opacity: 0.8;
         transform: scale(1.05);
     }
 }
