@@ -14,6 +14,30 @@ document.querySelectorAll('#year').forEach(el => {
     el.textContent = new Date().getFullYear();
 });
 
+// Custom cursor from color-theory image
+(function() {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const size = 32;
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+
+        // Draw circular clipped image
+        ctx.beginPath();
+        ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(img, 0, 0, size, size);
+
+        const dataUrl = canvas.toDataURL('image/png');
+        document.body.style.cursor = `url(${dataUrl}) 16 16, auto`;
+    };
+    img.src = 'assets/images/color-theory.jpeg';
+})();
+
 // 🍑
 if (new URLSearchParams(window.location.search).get('ass') === 'phat') {
     document.body.style.cursor = 'url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22><text y=%2224%22 font-size=%2224%22>🍑</text></svg>") 16 16, auto';
@@ -319,20 +343,48 @@ async function populateFeaturedWorks() {
     });
 }
 
-// Populate all works on work page
+// Populate all works on work page, grouped by year
 async function populateAllWorks() {
     const container = document.getElementById('all-work');
     if (!container) return;
 
     const works = await loadWorks();
 
-    container.innerHTML = '';
+    // Group works by year
+    const worksByYear = {};
     works.forEach(work => {
-        container.appendChild(createWorkItem(work));
+        const year = work.year || 'Other';
+        if (!worksByYear[year]) {
+            worksByYear[year] = [];
+        }
+        worksByYear[year].push(work);
     });
 
-    // Create filter buttons
-    createFilters(works);
+    // Sort years descending (newest first)
+    const sortedYears = Object.keys(worksByYear).sort((a, b) => b - a);
+
+    container.innerHTML = '';
+
+    // Create sections for each year
+    sortedYears.forEach(year => {
+        const yearSection = document.createElement('div');
+        yearSection.className = 'work-year-section';
+
+        const yearHeading = document.createElement('h2');
+        yearHeading.className = 'work-year-heading';
+        yearHeading.textContent = year;
+        yearSection.appendChild(yearHeading);
+
+        const yearGrid = document.createElement('div');
+        yearGrid.className = 'work-grid';
+
+        worksByYear[year].forEach(work => {
+            yearGrid.appendChild(createWorkItem(work));
+        });
+
+        yearSection.appendChild(yearGrid);
+        container.appendChild(yearSection);
+    });
 }
 
 // Create category filter buttons

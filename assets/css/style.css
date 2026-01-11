@@ -44,7 +44,6 @@ body {
     color: var(--color-text);
     background-color: var(--color-bg);
     -webkit-font-smoothing: antialiased;
-    cursor: url('../images/color-theory.cur'), auto;
 }
 
 a {
@@ -175,6 +174,21 @@ img {
 /* ===========================================
    WORK GRID
    =========================================== */
+.work-year-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.work-year-section:last-child {
+    margin-bottom: 0;
+}
+
+.work-year-heading {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+}
+
 .work-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
