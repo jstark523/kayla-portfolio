@@ -241,11 +241,10 @@ function createWorkItem(work) {
 // Hero slideshow functionality
 async function initHeroSlideshow() {
     const slideshow = document.getElementById('hero-slideshow');
-    const taglineEl = document.getElementById('hero-tagline');
-    if (!slideshow || !taglineEl) return;
+    if (!slideshow) return;
 
     const works = await loadWorks();
-    const heroWorks = works.filter(w => w.heroFeature && w.tagline);
+    const heroWorks = works.filter(w => w.heroFeature);
 
     if (heroWorks.length === 0) return;
 
@@ -255,7 +254,6 @@ async function initHeroSlideshow() {
         img.src = work.image;
         img.alt = work.title;
         img.className = 'hero-slide' + (index === 0 ? ' active' : '');
-        img.dataset.tagline = work.tagline;
 
         // Fade in when loaded
         if (img.complete) {
@@ -267,10 +265,6 @@ async function initHeroSlideshow() {
         slideshow.appendChild(img);
     });
 
-    // Set initial tagline
-    taglineEl.textContent = heroWorks[0].tagline;
-    taglineEl.classList.add('active');
-
     // If only one slide, no need for navigation
     if (heroWorks.length === 1) return;
 
@@ -279,21 +273,13 @@ async function initHeroSlideshow() {
     let autoAdvance;
 
     const goToSlide = (newIndex) => {
-        // Crossfade: fade out current, fade in next simultaneously
         slides[currentIndex].classList.remove('active');
-        taglineEl.classList.remove('active');
 
         currentIndex = newIndex;
         if (currentIndex < 0) currentIndex = heroWorks.length - 1;
         if (currentIndex >= heroWorks.length) currentIndex = 0;
 
         slides[currentIndex].classList.add('active');
-
-        // Slight delay for tagline text change
-        setTimeout(() => {
-            taglineEl.textContent = heroWorks[currentIndex].tagline;
-            taglineEl.classList.add('active');
-        }, 200);
     };
 
     const resetAutoAdvance = () => {

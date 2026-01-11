@@ -123,13 +123,12 @@ img {
 .hero {
     height: 100vh;
     padding-top: var(--nav-height);
-    display: flex;
-    flex-direction: column;
 }
 
 .hero-image {
-    flex: 1;
     position: relative;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     cursor: pointer;
 }
@@ -145,23 +144,6 @@ img {
 }
 
 .hero-slide.loaded.active {
-    opacity: 1;
-}
-
-.hero-text {
-    padding: var(--spacing-md);
-    text-align: center;
-}
-
-.hero-tagline {
-    font-size: 1rem;
-    color: var(--color-text-light);
-    letter-spacing: 0.02em;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.hero-tagline.active {
     opacity: 1;
 }
 
