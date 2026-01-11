@@ -14,7 +14,8 @@
     --color-border: #e5e5e5;       /* Subtle borders */
 
     /* ✏️ FONTS */
-    --font-main: 'Inter', -apple-system, sans-serif;
+    --font-main: 'Courier New', Courier, monospace;
+    --font-logo: 'Caveat', cursive;
 
     /* Spacing (probably don't need to change) */
     --nav-height: 70px;
@@ -76,9 +77,9 @@ img {
 }
 
 .nav-logo {
-    font-size: 1.25rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    font-family: var(--font-logo);
+    font-size: 1.75rem;
+    font-weight: 400;
 }
 
 .nav-links {
