@@ -14,30 +14,6 @@ document.querySelectorAll('#year').forEach(el => {
     el.textContent = new Date().getFullYear();
 });
 
-// Custom cursor from color-theory image
-(function() {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const size = 32;
-        canvas.width = size;
-        canvas.height = size;
-        const ctx = canvas.getContext('2d');
-
-        // Draw circular clipped image
-        ctx.beginPath();
-        ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.clip();
-        ctx.drawImage(img, 0, 0, size, size);
-
-        const dataUrl = canvas.toDataURL('image/png');
-        document.body.style.cursor = `url(${dataUrl}) 16 16, auto`;
-    };
-    img.src = 'assets/images/color-theory.jpeg';
-})();
-
 // 🍑
 if (new URLSearchParams(window.location.search).get('ass') === 'phat') {
     document.body.style.cursor = 'url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22><text y=%2224%22 font-size=%2224%22>🍑</text></svg>") 16 16, auto';
