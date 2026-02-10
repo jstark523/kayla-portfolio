@@ -7,12 +7,12 @@
       "title": "test art",
       "category": "Originals",
       "price": 10,
-      "image": "https://files.stripe.com/links/MDB8YWNjdF8xU252ZXdJeGNRejFkNnVrfGZsX3Rlc3RfZkE2WFFHUjBOS0Q5bGlyOFdUYjBwd0xP00BlxHGSgj",
+      "image": "assets/images/bears.jpeg",
       "description": "art is cool!",
       "stripeLink": "https://buy.stripe.com/test_5kQfZibJE5TGg4daJtcfK00",
       "sold": false,
       "workId": "bears"
     }
   ],
-  "_lastSync": "2026-02-10T12:55:16.745Z"
+  "_lastSync": "2026-02-10T18:56:25.379Z"
 }
