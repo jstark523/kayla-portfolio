@@ -28,7 +28,7 @@ git pull
 | Update your bio | `about.html` |
 | Change colors/fonts | `assets/css/style.css` |
 | Replace images | `assets/images/` folder |
-| Change hero slideshow & taglines | `content/works.json` (heroFeature + tagline) |
+| Change hero slideshow | `content/works.json` (heroFeature) |
 
 ⚠️ **Don't edit `content/products.json` directly** - it's auto-generated from Stripe and will be overwritten!
 
@@ -51,11 +51,11 @@ Shop products automatically inherit descriptions from their linked artwork! This
 - If a product has no description but is linked to a work (via `workId`), the work's description is used
 - This works on both the Shop page and Work Detail pages
 
-**Example:** If "Sparkle Face" in `works.json` has description "Acrylic on canvas, 24x36", any linked prints or originals without their own description will automatically show that text.
+**Example:** If a piece in `works.json` has `description: "A study in color and emotion"`, any linked prints or originals without their own Stripe description will show that text. The `medium` field (e.g., "Acrylic on canvas, 24x36") always shows on shop products when available.
 
 ---
 
-## Adding New Artwork (The Most Common Task!)
+## Adding New Work
 
 ### Step 1: Add your image
 1. Put your image file in the `assets/images/` folder
@@ -74,55 +74,19 @@ Open `content/works.json` and add a new entry. Copy this template:
   "description": "An artistic statement about your piece.",
   "medium": "Acrylic on canvas, 24x36",
   "featured": true,
-  "heroFeature": true,
-  "tagline": "Your artistic tagline here"
+  "heroFeature": true
 }
 ```
 
 **What each field does:**
-- `description` = artistic statement about the piece (shown on work detail page, also used as fallback for shop products)
+- `description` = artistic statement about the piece (shown on work detail page, also used as for shop products unless you override description in stripe)
 - `medium` = technical details like materials and size (shown everywhere: work detail page, shop cards, etc.)
 - `featured: true` = shows in "Selected Work" grid on homepage
 - `heroFeature: true` = shows in the big hero slideshow at top of homepage
-- `tagline` = text shown below the image in the hero slideshow (required if heroFeature is true)
 - Put a comma after the previous artwork's `}` before adding yours
 - Categories can be anything you want: Paintings, Drawings, Digital, Photography, etc.
 
-**Hero Slideshow:** Works with both `heroFeature: true` AND a `tagline` will cycle through the homepage hero. Visitors can use the arrows or wait 5 seconds for auto-advance.
-
-### Example: Before and After
-
-**Before:**
-```json
-{
-  "id": "artwork-1",
-  "title": "Old Painting",
-  "year": "2023",
-  ...
-  "featured": true
-}
-```
-
-**After (adding a new one):**
-```json
-{
-  "id": "artwork-1",
-  "title": "Old Painting",
-  "year": "2023",
-  ...
-  "featured": true
-},
-{
-  "id": "new-painting",
-  "title": "My New Painting",
-  "year": "2024",
-  "category": "Paintings",
-  "image": "assets/images/new-painting.jpg",
-  "description": "This piece explores the interplay of light and shadow.",
-  "medium": "Acrylic on canvas, 24x36",
-  "featured": true
-}
-```
+**Hero Slideshow:** Works with `heroFeature: true` will cycle through the homepage hero. Visitors can click or wait 5 seconds for auto-advance.
 
 ---
 
@@ -138,9 +102,9 @@ Your shop syncs automatically with Stripe every 6 hours. **No need to edit any f
    - **Product name**: e.g., "Mountain Print 11x14"
    - **Price**: e.g., $35.00
    - **Image**: Upload a photo (this shows on your website!)
-   - **Description**: Size, medium, details
+   - **Description(optional, override work description)**: Artist Statement
 
-4. **Set the category** (Important!):
+4. **Set the category**:
    - Scroll down and click **"Additional options"**
    - Click **"Add metadata"**
    - Add: Key = `category`, Value = `Originals`, `Prints`, or `Crafts`
@@ -148,13 +112,13 @@ Your shop syncs automatically with Stripe every 6 hours. **No need to edit any f
 5. **Link to a work** (Optional but recommended!):
    - In the same metadata section, add another entry
    - Add: Key = `workId`, Value = the ID of the artwork (e.g., `sparkle-face`)
-   - This makes the product appear on that artwork's detail page!
+   - This makes the product appear on that Work detail page!
    - Find artwork IDs in `content/works.json`
 
 6. **For limited items** (originals, limited editions):
    - Click "Advanced options"
    - Enable **"Limit the number of payments"**
-   - Set quantity (1 for originals, edition size for prints)
+   - Set the limit (1 for one-of-a-kind originals, or your edition size for limited prints)
 
 7. Click **Create link** - Done!
 
@@ -173,29 +137,29 @@ Don't want to wait 6 hours?
 ### Metadata Tips
 
 The sync is forgiving with metadata:
-- `category`, `Category`, or `CATEGORY` all work
-- `prints`, `Prints`, `print`, `Print` all become "Prints"
-- `originals`, `original`, `Original` all become "Originals"
-- `crafts`, `craft`, `Crafts` all become "Crafts"
+- `category`, `Category`, or `CATEGORY`
+- `prints`, `Prints`, `print`, `Print`
+- `originals`, `original`, `Original`
+- `crafts`, `craft`, `Crafts`
 - If you forget the category, it defaults to "Prints"
-- `workId`, `workid`, `WorkId`, or `work_id` all work for linking to artwork
+- `workId`, `workid`, `WorkId`, or `work_id`
 
 ### When Something Sells Out
 
-- Stripe automatically stops accepting payments when limit is reached
-- Deactivate the payment link in Stripe to show "Sold" on your site
-- Or just delete the payment link to remove it entirely
+- Stripe automatically stops accepting payments when payment limit is reached
+- The item will automatically show as "Sold" on your site after the next sync
+- To remove a sold item entirely, delete the payment link in Stripe
 
 ### Removing a Product
 
-Just delete or deactivate the Payment Link in Stripe. Next sync, it's gone from your site.
+- **Delete** the Payment Link in Stripe to remove it from your site entirely
+- **Deactivate** the Payment Link to keep it visible but show "Sold"
 
 ### Product Images
 
-The image you upload to Stripe is used on your website. For best results:
-- Use square or 4:5 ratio images
-- At least 800px wide
-- JPG or PNG format
+If a product is linked to a work (via `workId`), it automatically uses that work's image from your `assets/images/` folder. No need to upload to Stripe!
+
+If no work is linked, the image you upload to Stripe is used instead.
 
 ---
 
@@ -207,7 +171,6 @@ Your email and social links appear on every page. Edit them in ONE place and the
 
 ```json
 {
-  "artistName": "Kayla Carabes",
   "email": "kjcarabes@gmail.com",
 
   "socialLinks": [
@@ -256,7 +219,7 @@ Open `about.html` and find this section:
 ```html
 <!-- ✏️ EDIT YOUR BIO HERE -->
 <p>
-    Kayla Carabes is a Mexican American painter...
+    Kayla Carabes is a talented cool awesome...
 </p>
 <!-- END BIO SECTION -->
 ```
@@ -273,8 +236,6 @@ Just change the text between the `<p>` and `</p>` tags. Each `<p>...</p>` is a p
 ---
 
 ## Adding Blog Posts
-
-Your blog is perfect for sharing work-in-progress, thoughts, and studio updates. Blog posts support multiple images that display in an artistic, scattered layout.
 
 ### Open `content/blog.json`:
 
@@ -299,14 +260,14 @@ Your blog is perfect for sharing work-in-progress, thoughts, and studio updates.
 - `id` - A unique identifier (use lowercase, dashes instead of spaces)
 - `title` - Optional! Leave it out for posts without a title
 - `date` - Format: `YYYY-MM-DD` (e.g., `2025-02-26` for Feb 26, 2025)
-- `images` - An array of image paths (can be 1 or many!)
+- `images` - A list of image paths (can be 1 or many!)
 - `content` - Your post text
 
 ### Adding a New Blog Post
 
 1. **Add your images** to `assets/images/` folder
 2. **Open `content/blog.json`**
-3. **Add a new entry at the TOP** of the posts array (newest first):
+3. **Add a new entry at the TOP** of the posts list (newest first):
 
 ```json
 {
@@ -329,7 +290,7 @@ Your blog is perfect for sharing work-in-progress, thoughts, and studio updates.
 
 ### Multiple Images
 
-When you add multiple images, they display in an artistic scattered/overlapping layout:
+When you add multiple images, they display in a scattered/overlapping layout:
 
 ```json
 {
@@ -371,7 +332,7 @@ Images are clickable - visitors can click to view full size.
 
 ### Removing a Blog Post
 
-Just delete the entire post entry from the array (including the comma before or after it).
+Just delete the entire post entry from the list (including the comma before or after it).
 
 ---
 
@@ -392,24 +353,6 @@ Edit the text between `<p>` and `</p>` to say whatever you want.
 
 ---
 
-## Changing the Homepage
-
-### Hero Image (Big Image at Top)
-Open `index.html` and find:
-```html
-<img src="assets/images/sparkle-face.jpeg" alt="Featured artwork">
-```
-Change `sparkle-face.jpeg` to your preferred image filename.
-
-### Tagline
-Find this line:
-```html
-<p class="hero-tagline">Where color meets feeling</p>
-```
-Change the text to your own tagline.
-
----
-
 ## Changing Colors (For When You're Feeling Adventurous)
 
 Open `assets/css/style.css` and look at the top:
@@ -424,35 +367,6 @@ Open `assets/css/style.css` and look at the top:
 }
 ```
 
-Change the `#xxxxxx` values to different colors. You can use:
-- Google "color picker" to find hex codes
-- Or try: `#000000` (black), `#ffffff` (white), `#ff6b6b` (coral), `#4ecdc4` (teal)
-
----
-
-## How to Save and Publish Changes
-
-### Using GitHub Desktop (Easiest)
-
-1. Open GitHub Desktop
-2. You'll see your changes listed on the left
-3. At the bottom, type a short description (e.g., "Added new painting")
-4. Click "Commit to main"
-5. Click "Push origin" at the top
-
-Your changes will be live in 1-2 minutes!
-
-### Using VS Code + Terminal
-
-1. Open VS Code
-2. Open Terminal (View > Terminal)
-3. Type these commands:
-   ```
-   git add .
-   git commit -m "Added new artwork"
-   git push
-   ```
-
 ---
 
 ## Image Tips
@@ -464,8 +378,6 @@ Your changes will be live in 1-2 minutes!
 
 - **File formats:** JPG for photos/paintings, PNG if you need transparency
 
-- **Compress your images** before uploading at [squoosh.app](https://squoosh.app) to keep the site fast
-
 ---
 
 ## Something Broke?
@@ -474,11 +386,9 @@ Don't panic! Here's what to do:
 
 1. **Check for typos** - especially in `.json` files. A missing comma or quote will break it.
 
-2. **Use a JSON validator** - Paste your JSON content into [jsonlint.com](https://jsonlint.com) to find errors.
+2. **Use a JSON validator** - Paste your file.json content into [jsonlint.com](https://jsonlint.com) to find errors.
 
-3. **Undo your changes** - In GitHub Desktop, right-click the file and choose "Discard changes"
-
-4. **Ask for help** - Show me the error message and I'll help fix it!
+3. **Call Jason :)** - I got u hb
 
 ---
 
@@ -498,13 +408,4 @@ Don't panic! Here's what to do:
 
 ---
 
-## Stripe Tips
-
-- **Test before going live:** Stripe has a "Test mode" toggle in the dashboard. Use it to test purchases without real charges.
-- **Check your payouts:** Go to Stripe dashboard → Balances to see your money and set up bank transfers.
-- **Shipping:** Stripe Payment Links can collect shipping addresses. Enable this when creating the link if you're shipping physical items.
-- **Taxes:** Stripe can handle sales tax automatically. Check their Tax settings if needed.
-
----
-
-That's it! You've got this. Products sync from Stripe automatically - just create Payment Links and they'll appear on your site!
+That's it! Welcome to Beep Boop the water's fine

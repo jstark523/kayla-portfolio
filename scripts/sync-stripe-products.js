@@ -14,21 +14,36 @@ const path = require('path');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+// Load works.json for image inheritance
+function loadWorks() {
+  try {
+    const worksPath = path.join(__dirname, '..', 'content', 'works.json');
+    const data = JSON.parse(fs.readFileSync(worksPath, 'utf8'));
+    return data.works || [];
+  } catch (error) {
+    console.log('Could not load works.json, skipping image inheritance');
+    return [];
+  }
+}
+
 async function syncProducts() {
   console.log('Fetching payment links from Stripe...');
 
-  // Fetch all active payment links
-  const paymentLinks = await stripe.paymentLinks.list({
-    active: true,
-    limit: 100,
-    expand: ['data.line_items']
-  });
+  // Load works for image inheritance
+  const works = loadWorks();
 
-  console.log(`Found ${paymentLinks.data.length} active payment links`);
+  // Fetch both active and inactive payment links
+  const [activeLinks, inactiveLinks] = await Promise.all([
+    stripe.paymentLinks.list({ active: true, limit: 100, expand: ['data.line_items'] }),
+    stripe.paymentLinks.list({ active: false, limit: 100, expand: ['data.line_items'] })
+  ]);
+
+  const paymentLinks = [...activeLinks.data, ...inactiveLinks.data];
+  console.log(`Found ${activeLinks.data.length} active and ${inactiveLinks.data.length} inactive payment links`);
 
   const products = [];
 
-  for (const link of paymentLinks.data) {
+  for (const link of paymentLinks) {
     try {
       // Get line items for this payment link
       const lineItems = await stripe.paymentLinks.listLineItems(link.id, {
@@ -86,8 +101,15 @@ async function syncProducts() {
                      product.metadata?.work_id ||
                      null;
 
-      // Check if sold out (payment link has restrictions)
+      // Check if sold out (inactive payment link = sold or manually deactivated)
       const sold = !link.active;
+
+      // Get image: prefer linked work's image, fall back to Stripe image
+      let image = product.images?.[0] || 'assets/images/placeholder.jpg';
+      const linkedWork = workId ? works.find(w => w.id === workId) : null;
+      if (linkedWork?.image) {
+        image = linkedWork.image;
+      }
 
       // Build product entry
       const productEntry = {
@@ -95,7 +117,7 @@ async function syncProducts() {
         title: product.name,
         category: category,
         price: price.unit_amount / 100, // Convert cents to dollars
-        image: product.images?.[0] || 'assets/images/placeholder.jpg',
+        image: image,
         description: product.description || '',
         stripeLink: link.url,
         sold: sold,

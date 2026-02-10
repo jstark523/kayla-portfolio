@@ -1,6 +1,6 @@
 {
   "_comment": "✏️ THIS IS YOUR ARTWORK DATABASE - Edit this file to add/remove works!",
-  "_instructions": "Each artwork needs: id, title, year, category, image. Optional: description, medium, featured, heroFeature, tagline",
+  "_instructions": "Each artwork needs: id, title, year, category, image. Optional: description, medium, featured, heroFeature",
 
   "works": [
     {
@@ -12,8 +12,7 @@
       "description": "",
       "medium": "",
       "featured": true,
-      "heroFeature": true,
-      "tagline": "Where color meets feeling"
+      "heroFeature": true
     },
     {
       "id": "horses",
@@ -24,8 +23,7 @@
       "description": "",
       "medium": "",
       "featured": true,
-      "heroFeature": true,
-      "tagline": "Movement captured in paint"
+      "heroFeature": true
     },
     {
       "id": "fire",
@@ -36,8 +34,7 @@
       "description": "",
       "medium": "",
       "featured": true,
-      "heroFeature": true,
-      "tagline": "Light that dances"
+      "heroFeature": true
     },
     {
       "id": "lake-self",
