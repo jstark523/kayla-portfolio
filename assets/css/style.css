@@ -458,6 +458,12 @@ img {
 .work-detail-description {
     color: var(--color-text-light);
     line-height: 1.8;
+    margin-bottom: var(--spacing-md);
+}
+
+.work-detail-medium {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -491,6 +497,11 @@ img {
 }
 
 .work-detail-shop-item-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+}
+
+.work-detail-shop-item-medium {
     font-size: 0.8rem;
     color: var(--color-text-light);
 }
@@ -840,6 +851,12 @@ img {
 }
 
 .product-card-description {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    margin-bottom: 0.25rem;
+}
+
+.product-card-medium {
     font-size: 0.8rem;
     color: var(--color-text-light);
     margin-bottom: 0.5rem;

@@ -507,6 +507,9 @@ function createProductCard(product, works = []) {
         }
     }
 
+    // Get medium from linked work
+    const medium = linkedWork?.medium || '';
+
     // Show "View artwork" link if product is linked to a work
     const viewArtworkHtml = linkedWork
         ? `<a href="work-detail.html?id=${product.workId}" class="product-card-link">View artwork</a>`
@@ -520,6 +523,7 @@ function createProductCard(product, works = []) {
         <div class="product-card-info">
             <h3 class="product-card-title">${product.title}</h3>
             ${description ? `<p class="product-card-description">${description}</p>` : ''}
+            ${medium ? `<p class="product-card-medium">${medium}</p>` : ''}
             <p class="product-card-price">$${product.price}</p>
             ${buttonHtml}
             ${viewArtworkHtml}
@@ -710,11 +714,13 @@ async function loadWorkDetail() {
                 ${linkedProducts.map(product => {
                     // Use product description, or fall back to work description
                     const description = product.description || work.description || '';
+                    const medium = work.medium || '';
                     return `
                     <div class="work-detail-shop-item">
                         <div class="work-detail-shop-item-info">
                             <span class="work-detail-shop-item-title">${product.title}</span>
                             ${description ? `<span class="work-detail-shop-item-desc">${description}</span>` : ''}
+                            ${medium ? `<span class="work-detail-shop-item-medium">${medium}</span>` : ''}
                             <span class="work-detail-shop-item-price">$${product.price}</span>
                         </div>
                         <a href="${product.stripeLink}" target="_blank" rel="noopener" class="work-detail-buy-btn">Buy</a>
@@ -733,6 +739,7 @@ async function loadWorkDetail() {
             <h1>${work.title}</h1>
             <p class="work-detail-meta">${work.year}${work.category ? ` · ${work.category}` : ''}</p>
             ${work.description ? `<p class="work-detail-description">${work.description}</p>` : ''}
+            ${work.medium ? `<p class="work-detail-medium">${work.medium}</p>` : ''}
             ${shopHtml}
         </div>
     `;

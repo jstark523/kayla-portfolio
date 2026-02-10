@@ -9,7 +9,7 @@ Heyyyyy HB. This guide will help you update your website. Don't worry - you are 
 
 **Always pull the latest changes first!** The shop syncs automatically from Stripe, so the code may have changed since you last worked on it.
 
-In your terminal (if you don't see it: hover to top menu bar -> click terminal -> new terminal), run:
+Everytime before you make any changes- in your VSCode terminal (if you don't see it: hover to top menu bar -> click terminal -> new terminal), run:
 ```
 git fetch
 git pull
@@ -71,7 +71,8 @@ Open `content/works.json` and add a new entry. Copy this template:
   "year": "2024",
   "category": "Paintings",
   "image": "assets/images/your-image-filename.jpg",
-  "description": "Description of your piece.",
+  "description": "An artistic statement about your piece.",
+  "medium": "Acrylic on canvas, 24x36",
   "featured": true,
   "heroFeature": true,
   "tagline": "Your artistic tagline here"
@@ -79,6 +80,8 @@ Open `content/works.json` and add a new entry. Copy this template:
 ```
 
 **What each field does:**
+- `description` = artistic statement about the piece (shown on work detail page, also used as fallback for shop products)
+- `medium` = technical details like materials and size (shown everywhere: work detail page, shop cards, etc.)
 - `featured: true` = shows in "Selected Work" grid on homepage
 - `heroFeature: true` = shows in the big hero slideshow at top of homepage
 - `tagline` = text shown below the image in the hero slideshow (required if heroFeature is true)
@@ -115,7 +118,8 @@ Open `content/works.json` and add a new entry. Copy this template:
   "year": "2024",
   "category": "Paintings",
   "image": "assets/images/new-painting.jpg",
-  "description": "Acrylic on canvas, 24x36 inches.",
+  "description": "This piece explores the interplay of light and shadow.",
+  "medium": "Acrylic on canvas, 24x36",
   "featured": true
 }
 ```

@@ -1,6 +1,6 @@
 {
   "_comment": "✏️ THIS IS YOUR ARTWORK DATABASE - Edit this file to add/remove works!",
-  "_instructions": "Each artwork needs: id, title, year, category, image. Optional: description, featured, heroFeature, tagline",
+  "_instructions": "Each artwork needs: id, title, year, category, image. Optional: description, medium, featured, heroFeature, tagline",
 
   "works": [
     {
@@ -10,6 +10,7 @@
       "category": "Paintings",
       "image": "assets/images/sparkle-face.jpeg",
       "description": "",
+      "medium": "",
       "featured": true,
       "heroFeature": true,
       "tagline": "Where color meets feeling"
@@ -21,6 +22,7 @@
       "category": "Paintings",
       "image": "assets/images/horses.jpeg",
       "description": "",
+      "medium": "",
       "featured": true,
       "heroFeature": true,
       "tagline": "Movement captured in paint"
@@ -32,6 +34,7 @@
       "category": "Paintings",
       "image": "assets/images/fire.jpeg",
       "description": "",
+      "medium": "",
       "featured": true,
       "heroFeature": true,
       "tagline": "Light that dances"
@@ -43,6 +46,7 @@
       "category": "Paintings",
       "image": "assets/images/lake-self.jpeg",
       "description": "",
+      "medium": "",
       "featured": true
     },
     {
@@ -52,6 +56,7 @@
       "category": "Paintings",
       "image": "assets/images/birb.jpeg",
       "description": "",
+      "medium": "",
       "featured": false
     },
     {
@@ -60,7 +65,8 @@
       "year": "2024",
       "category": "Paintings",
       "image": "assets/images/bears.jpeg",
-      "description": "",
+      "description": "This piece explores the interplay of light and shadow.",
+      "medium": "Acrylic on canvas, 24x36",
       "featured": false
     },
     {
@@ -70,6 +76,7 @@
       "category": "Paintings",
       "image": "assets/images/donkey-moon.jpeg",
       "description": "",
+      "medium": "",
       "featured": false
     },
     {
@@ -79,6 +86,7 @@
       "category": "Paintings",
       "image": "assets/images/teeth.jpeg",
       "description": "",
+      "medium": "",
       "featured": false
     },
     {
@@ -88,6 +96,7 @@
       "category": "Paintings",
       "image": "assets/images/trees.jpeg",
       "description": "",
+      "medium": "",
       "featured": false
     },
     {
@@ -97,6 +106,7 @@
       "category": "Paintings",
       "image": "assets/images/water.jpeg",
       "description": "",
+      "medium": "",
       "featured": false
     },
     {
@@ -106,6 +116,7 @@
       "category": "Paintings",
       "image": "assets/images/wood.jpeg",
       "description": "",
+      "medium": "",
       "featured": false
     },
     {
@@ -115,6 +126,7 @@
       "category": "Paintings",
       "image": "assets/images/woof.jpeg",
       "description": "",
+      "medium": "",
       "featured": false
     },
     {
@@ -124,6 +136,7 @@
       "category": "Paintings",
       "image": "assets/images/natural.jpeg",
       "description": "",
+      "medium": "",
       "featured": false
     }
   ],
