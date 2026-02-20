@@ -15,7 +15,7 @@
 
     /* ✏️ FONTS */
     --font-main: 'Courier New', Courier, monospace;
-    --font-logo: 'Manrope';
+    --font-logo: 'EB Garamond', serif;
 
     /* Spacing (probably don't need to change) */
     --nav-height: 70px;
@@ -79,7 +79,8 @@ img {
 .nav-logo {
     font-family: var(--font-logo);
     font-size: 2.25rem;
-    font-weight: 400;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .nav-links {
@@ -463,6 +464,16 @@ img {
 
 .work-detail-medium {
     font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-lg);
+}
+
+.work-detail-medium:has(+ .work-detail-size) {
+    margin-bottom: 0.25rem;
+}
+
+.work-detail-size {
+    font-size: 0.85rem;
     color: var(--color-text-light);
     margin-bottom: var(--spacing-lg);
 }

@@ -1,6 +1,6 @@
 {
   "_comment": "✏️ THIS IS YOUR ARTWORK DATABASE - Edit this file to add/remove works!",
-  "_instructions": "Each artwork needs: id, title, year, category, image. Optional: description, medium, featured, heroFeature",
+  "_instructions": "Each artwork needs: id, title, year, category, image. Optional: description, medium, size, featured, heroFeature",
 
   "works": [
     {
@@ -31,8 +31,9 @@
       "year": "2025",
       "category": "Paintings",
       "image": "assets/images/fire.jpeg",
-      "description": "2ft x 3ft ",
+      "description": "",
       "medium": "Oil on canvas",
+      "size": "2ft x 3ft",
       "featured": true,
       "heroFeature": true
     },
@@ -42,8 +43,9 @@
       "year": "2024",
       "category": "Paintings",
       "image": "assets/images/lake-self.jpeg",
-      "description": "3ft x 4ft",
+      "description": "",
       "medium": "Oil on canvas",
+      "size": "3ft x 4ft",
       "featured": true
     },
     {
@@ -52,8 +54,9 @@
       "year": "2025",
       "category": "Paintings",
       "image": "assets/images/birb.jpeg",
-      "description": "2ft x 3ft",
+      "description": "",
       "medium": "Oil on canvas",
+      "size": "2ft x 3ft",
       "featured": false
     },
     {
@@ -62,8 +65,9 @@
       "year": "2024",
       "category": "Paintings",
       "image": "assets/images/bears.jpeg",
-      "description": "6ft x 4ft.",
+      "description": "",
       "medium": "Oil on canvas",
+      "size": "6ft x 4ft",
       "featured": false
     },
     {
@@ -82,8 +86,9 @@
       "year": "2024",
       "category": "Paintings",
       "image": "assets/images/teeth.jpeg",
-      "description": "26in x 26in ",
-      "medium": "Oil on canvas ",
+      "description": "",
+      "medium": "Oil on canvas",
+      "size": "26in x 26in",
       "featured": false
     },
     {
@@ -92,8 +97,9 @@
       "year": "2025",
       "category": "Paintings",
       "image": "assets/images/trees.jpeg",
-      "description": "4ft x 3ft",
+      "description": "",
       "medium": "Oil on canvas",
+      "size": "4ft x 3ft",
       "featured": true
     },
     {
@@ -102,8 +108,9 @@
       "year": "2025",
       "category": "Paintings",
       "image": "assets/images/water.jpeg",
-      "description": "26in x 26in",
+      "description": "",
       "medium": "Oil on canvas",
+      "size": "26in x 26in",
       "featured": false
     },
     {
@@ -117,13 +124,14 @@
       "featured": false
     },
     {
-      "id": "My Fathers Dog's son",
+      "id": "father-dog",
       "title": "My Father's Dog's Son",
       "year": "2025",
       "category": "Paintings",
       "image": "assets/images/woof.jpeg",
       "description": "Rambling thoughts on my walk throughout the city. Blue sky, city trees in concrete, wires in the air, the strange truck parked only for 2 days, God i hate cars they're trying to kill me, so many nice dogs I can't pet, this song stuck in my head, blue busted bike looking, welcoming me home.",
-      "medium": "4ft x 4ft Oil on canvas",
+      "medium": "Oil on canvas",
+      "size": "4ft x 4ft",
       "featured": false
     },
     {
@@ -132,8 +140,9 @@
       "year": "2025",
       "category": "Paintings",
       "image": "assets/images/natural.jpeg",
-      "description": "6in x 12in",
+      "description": "",
       "medium": "Wood ash, animal skin glue and soft pastel on wood",
+      "size": "6in x 12in",
       "featured": true
     }
   ],

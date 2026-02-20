@@ -669,6 +669,7 @@ async function loadWorkDetail() {
             <p class="work-detail-meta">${work.year}${work.category ? ` · ${work.category}` : ''}</p>
             ${work.description ? `<p class="work-detail-description">${work.description}</p>` : ''}
             ${work.medium ? `<p class="work-detail-medium">${work.medium}</p>` : ''}
+            ${work.size ? `<p class="work-detail-size">${work.size}</p>` : ''}
             ${shopHtml}
         </div>
     `;
