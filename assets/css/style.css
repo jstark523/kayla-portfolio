@@ -468,15 +468,6 @@ img {
     margin-bottom: var(--spacing-lg);
 }
 
-.work-detail-medium:has(+ .work-detail-size) {
-    margin-bottom: 0.25rem;
-}
-
-.work-detail-size {
-    font-size: 0.85rem;
-    color: var(--color-text-light);
-    margin-bottom: var(--spacing-lg);
-}
 
 .work-detail-shop {
     padding-top: var(--spacing-md);
